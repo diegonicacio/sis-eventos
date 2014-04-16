@@ -1,0 +1,5 @@
+Minicurso só tem 40 vagas, como controlar o controle de inscrição se nem todos que se inscreveram pagaram.
+
+Palestra e Minicurso tem os msms atributos e metodos. Herança? 
+
+Palestrante.artigospublicados.  Melhor criar Entidade artigo?
