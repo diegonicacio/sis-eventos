@@ -20,8 +20,7 @@ public class Minicurso {
 	@GeneratedValue
 	private Long id;
 	private String tema;
-	@ManyToOne
-	private Palestrante palestrante;
+	private String palestrante;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dataInicio;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -30,12 +29,18 @@ public class Minicurso {
 	private int vagas;
 	@ManyToMany
 	private List<Participante> listaInscritosMinicurso;
+	private String descricao;
 
-	public Minicurso(String tema, Palestrante palestrante) {
-		listaInscritosMinicurso = new ArrayList<Participante>();
+	public Minicurso() {
+		// TODO Auto-generated constructor stub
+	}
 
-		this.tema = tema;
-		this.palestrante = palestrante;
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public Long getId() {
@@ -58,11 +63,11 @@ public class Minicurso {
 		this.tema = tema;
 	}
 
-	public Palestrante getPalestrante() {
+	public String getPalestrante() {
 		return palestrante;
 	}
 
-	public void setPalestrante(Palestrante palestrante) {
+	public void setPalestrante(String palestrante) {
 		this.palestrante = palestrante;
 	}
 

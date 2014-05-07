@@ -1,7 +1,6 @@
 package br.com.fipgati.eventos.domain.model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -9,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -18,11 +16,9 @@ public class Palestra {
 
 	@Id
 	@GeneratedValue
-	
 	private Long id;
 	private String tema;
-	@ManyToOne
-	private Palestrante palestrante;
+	private String palestrante;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dataInicio;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -31,12 +27,18 @@ public class Palestra {
 	private int vagas;
 	@ManyToMany
 	private List<Participante> listaInscritosPalestra;
+	private String descricao;
 
-	public Palestra(String tema, Palestrante palestrante) {
-		listaInscritosPalestra = new ArrayList<Participante>();
+	public Palestra() {
+		// TODO Auto-generated constructor stub
+	}
 
-		this.tema = tema;
-		this.palestrante = palestrante;
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public Long getId() {
@@ -59,11 +61,11 @@ public class Palestra {
 		this.tema = tema;
 	}
 
-	public Palestrante getPalestrante() {
+	public String getPalestrante() {
 		return palestrante;
 	}
 
-	public void setPalestrante(Palestrante palestrante) {
+	public void setPalestrante(String palestrante) {
 		this.palestrante = palestrante;
 	}
 

@@ -18,6 +18,10 @@ public class Palestrante {
 	public Palestrante(String nome) {
 		this.nome = nome;
 	}
+	
+	public Palestrante() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Long getId() {
 		return id;

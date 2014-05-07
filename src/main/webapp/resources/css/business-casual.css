@@ -1,5 +1,5 @@
 body {
-  background: url(../img/bg.jpg) no-repeat center center fixed; 
+  background: url(../img/bg.png) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -11,6 +11,8 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 3px;
   font-weight: 400;
 }
+
+
 
 p {
   font-size: 1.25em;
@@ -27,7 +29,6 @@ hr {
 .address-bar {
   display: none;
 }
-
 
 .navbar-brand {
   text-transform: uppercase;

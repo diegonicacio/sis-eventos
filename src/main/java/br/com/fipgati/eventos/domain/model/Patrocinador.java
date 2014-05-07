@@ -11,11 +11,14 @@ public class Patrocinador {
 	@GeneratedValue
 	private Long id;
 	private String nome;
-	private String imgPath;
 	private String descricao;
 
 	public Patrocinador(String nome) {
 		this.nome = nome;
+	}
+	
+	public Patrocinador() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Long getId() {
@@ -32,14 +35,6 @@ public class Patrocinador {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getImgPath() {
-		return imgPath;
-	}
-
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
 	}
 
 	public String getDescricao() {
