@@ -2,7 +2,7 @@ package br.com.fipgati.eventos.web.controllers;
 
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
-import br.com.fipgati.eventos.domain.model.Organizador;
+import br.com.fipgati.eventos.domain.model.Usuario;
 
 @Resource
 public class LoginController {
@@ -12,7 +12,7 @@ public class LoginController {
 		
 	}
 	
-	public void autenticar(Organizador organizador){
+	public void autenticar(Usuario organizador){
 		//logar
 	}
 

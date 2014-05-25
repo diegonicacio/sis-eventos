@@ -16,17 +16,41 @@ public class Participante {
 	private Long id;
 	private String nome;
 	private String ocupacao;
-	@ManyToMany
-	private List<Minicurso> listaMinicurso;
-	@ManyToMany
-	private List<Palestra> listaPalestras;
+	@ManyToMany(mappedBy = "listaInscritosMinicurso")
+	List<Minicurso> minicursos;
+	@ManyToMany(mappedBy = "listaInscritosPalestra")
+	List<Palestra> palestras;
+	private String rg;
 	private boolean pagou;
 
-	public Participante(String nome) {
-		listaPalestras = new ArrayList<Palestra>();
-		listaMinicurso = new ArrayList<Minicurso>();
-		this.pagou = false;
-		this.nome = nome;
+	public Participante() {
+		minicursos = new ArrayList<Minicurso>();
+		palestras = new ArrayList<Palestra>();
+		pagou = true;
+	}
+
+	public void addMinicurso(Minicurso minicusro) {
+		this.minicursos.add(minicusro);
+	}
+
+	public void addPalestra(Palestra palestra) {
+		this.palestras.add(palestra);
+	}
+
+	public void delMinicurso(Minicurso minicurso) {
+		this.minicursos.remove(minicurso);
+	}
+
+	public void delPalestra(Palestra palestra) {
+		this.palestras.remove(palestra);
+	}
+
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
 	}
 
 	public Long getId() {
@@ -35,14 +59,6 @@ public class Participante {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public void adicionarMinicurso(Minicurso minicurso) {
-		this.listaMinicurso.add(minicurso);
-	}
-
-	public void adicionarPalestra(Palestra palestra) {
-		this.listaPalestras.add(palestra);
 	}
 
 	public String getNome() {
@@ -67,14 +83,6 @@ public class Participante {
 
 	public void setPagou(boolean pagou) {
 		this.pagou = pagou;
-	}
-
-	public List<Minicurso> getListaMinicurso() {
-		return listaMinicurso;
-	}
-
-	public List<Palestra> getListaPalestras() {
-		return listaPalestras;
 	}
 
 }

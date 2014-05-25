@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -28,7 +29,7 @@ public class Evento implements Serializable {
 	@GeneratedValue
 	private Long id;
 	private String nome;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dataInicio")
 	private Calendar dataInicio;
 	private String local;
@@ -43,8 +44,13 @@ public class Evento implements Serializable {
 	@ManyToMany
 	private List<Participante> listaInscritos;
 	@ManyToMany
-	private List<Organizador> organizadores;
+	private List<Usuario> organizadores;
+	@Column(length=100000)
 	private String descricao;
+	@Column(length=100000)
+	private String descricao2;
+
+	private String abreviacao;
 
 	@ElementCollection
 	@CollectionTable(name = "caminho_imagens", joinColumns = @JoinColumn(name = "evento_id"))
@@ -56,7 +62,6 @@ public class Evento implements Serializable {
 	private boolean finalizado;
 
 	public Evento() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Evento(String nome, Calendar data) {
@@ -69,6 +74,22 @@ public class Evento implements Serializable {
 		dataInicio = data;
 	}
 
+	public String getAbreviacao() {
+		return abreviacao;
+	}
+
+	public void setAbreviacao(String abreviacao) {
+		this.abreviacao = abreviacao;
+	}
+
+	public String getDescricao2() {
+		return descricao2;
+	}
+
+	public void setDescricao2(String descricao2) {
+		this.descricao2 = descricao2;
+	}
+
 	public boolean isFinalizado() {
 		return finalizado;
 	}
@@ -77,7 +98,7 @@ public class Evento implements Serializable {
 		this.finalizado = finalizado;
 	}
 
-	public List<Organizador> getOrganizadores() {
+	public List<Usuario> getOrganizadores() {
 		return organizadores;
 	}
 
@@ -93,6 +114,18 @@ public class Evento implements Serializable {
 		this.listaPatrocinadores.add(patrocinador);
 	}
 
+	public void removeMinicurso(Minicurso minicurso) {
+		this.listaMinicursos.remove(minicurso);
+	}
+
+	public void removePalestra(Palestra palestra) {
+		this.listaPalestras.remove(palestra);
+	}
+
+	public void removePatrocinador(Patrocinador patrocinador) {
+		this.listaPatrocinadores.remove(patrocinador);
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -101,15 +134,15 @@ public class Evento implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public void addOrganizador(Organizador organizador) {
+	public void addOrganizador(Usuario organizador) {
 		this.organizadores.add(organizador);
 	}
 
-	public void removeOrganizador(Organizador organizador) {
+	public void removeOrganizador(Usuario organizador) {
 		this.organizadores.remove(organizador);
 	}
 
-	public void setOrganizadores(List<Organizador> organizadores) {
+	public void setOrganizadores(List<Usuario> organizadores) {
 		this.organizadores = organizadores;
 	}
 

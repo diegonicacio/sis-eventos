@@ -1,5 +1,6 @@
 package br.com.fipgati.eventos.domain.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ public class Patrocinador {
 	@GeneratedValue
 	private Long id;
 	private String nome;
+	@Column(length=100000)
 	private String descricao;
 
 	public Patrocinador(String nome) {

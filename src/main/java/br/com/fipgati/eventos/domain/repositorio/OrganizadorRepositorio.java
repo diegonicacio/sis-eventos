@@ -1,7 +1,7 @@
 package br.com.fipgati.eventos.domain.repositorio;
 
-import br.com.fipgati.eventos.domain.model.Organizador;
+import br.com.fipgati.eventos.domain.model.Usuario;
 
-public interface OrganizadorRepositorio extends Repositorio<Organizador>{
+public interface OrganizadorRepositorio extends Repositorio<Usuario>{
 
 }

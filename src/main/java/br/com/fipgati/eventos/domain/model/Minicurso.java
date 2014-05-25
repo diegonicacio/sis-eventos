@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,16 +25,25 @@ public class Minicurso {
 	private String palestrante;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dataInicio;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataFinal;
 	private BigDecimal precoMinicurso;
 	private int vagas;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Participante> listaInscritosMinicurso;
+	@Column(length=100000)
 	private String descricao;
+
+	private String local;
 
 	public Minicurso() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getLocal() {
+		return local;
+	}
+
+	public void setLocal(String local) {
+		this.local = local;
 	}
 
 	public String getDescricao() {
@@ -77,14 +88,6 @@ public class Minicurso {
 
 	public void setDataInicio(Calendar dataInicio) {
 		this.dataInicio = dataInicio;
-	}
-
-	public Calendar getDataFinal() {
-		return dataFinal;
-	}
-
-	public void setDataFinal(Calendar dataFinal) {
-		this.dataFinal = dataFinal;
 	}
 
 	public BigDecimal getPrecoMinicurso() {

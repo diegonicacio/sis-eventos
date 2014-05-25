@@ -24,6 +24,8 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/business-casual.css"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/bootstrap-datetimepicker.min.css" />
 <decorator:head />
 </head>
 <body>

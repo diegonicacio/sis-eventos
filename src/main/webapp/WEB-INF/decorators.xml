@@ -12,6 +12,13 @@
 
 	<decorator name="admin" page="admin.jsp">
 		<pattern>/admin*</pattern>
+		<pattern>/evento/new</pattern>
+		<pattern>/evento/list</pattern>
+		<pattern>/</pattern>
+	</decorator>
+	
+	<decorator name="gerencia" page="gerencia.jsp">
+	<pattern>/evento/gerenciar*</pattern>
 	</decorator>
 
 

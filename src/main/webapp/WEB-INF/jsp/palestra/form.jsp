@@ -1,49 +1,70 @@
 <fieldset <c:if test="${action == 'show'}">disabled</c:if>>
-
-
+	<c:if test="${not empty palestra.id}">
+		<input type="hidden" name="palestra.id" value="${palestra.id}" />
+		<input type="hidden" name="evento.id" value="${evento.id}" />
+	</c:if>
+	
 	<div class="row">
-		<div class="form-group col-lg-4">
+		<div class="form-group col-lg-8">
 			<label>Tema:</label> <input type="text" class="form-control"
-				name="palestra.tema" placeholder="Ex: Semana Interna da Computação"
+				name="palestra.tema"
+				placeholder="Ex: Desenvolvimento de Aplicações Android"
 				value="${palestra.tema}" />
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="form-group col-lg-4">
-			<label>Data:</label> <input type="date" class="form-control"
-				name="palestra.dataInicio" placeholder="Ex: 26/05/1990"
-				value="${palestra.dataInicio.time}" />
+			<label>Local:</label> <input type="text" class="form-control"
+				name="palestra.local" placeholder="Ex: LAB 01 - FIPSI"
+				value="${palestra.local}" />
 		</div>
-	</div>
-
-	<div class="row">
-		<div class="form-group col-lg-4">
-			<label>Preco:</label> <input type="text" class="form-control"
-				name="palestra.precoMinicurso" placeholder="Ex: R$15,00"
-				value="${palestra.precoMinicurso}" />
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="form-group col-lg-4">
-			<label>Quantidade de vagas:</label> <input type="text"
-				class="form-control" name="palestra.vagas" placeholder="Ex: 50"
-				value="${palestra.vagas}" />
-		</div>
-	</div>
-
-	<div class="row">
 		<div class="form-group col-lg-4">
 			<label>Palestrante:</label> <input type="text" class="form-control"
-				name="palestra.palestrante.nome" placeholder="Ex: Joao do Caminhão"
+				name="palestra.palestrante" placeholder="Ex: Riquelme da Batera"
 				value="${palestra.palestrante}" />
 		</div>
 	</div>
 
-	<div class="form-group col-lg-4">
-		<label>Descricao:</label>
-		<textarea class="form-control" rows="6" name="palestra.descricao">${palestra.descricao}</textarea>
+	<div class="row">
+
+		<div class="form-group col-lg-2">
+			<label>Data:</label>
+			<div class="input-group date" id="datetimepicker5"
+				data-date-format="DD/MM/YYYY">
+				<input type="text" class="form-control"
+					placeholder="<fmt:formatDate pattern="dd/MM/yyyy"
+value="${palestra.dataInicio.time}" />"
+					name=data value="${data}"> <span class="input-group-addon"><span
+					class="glyphicon glyphicon-calendar"></span> </span>
+			</div>
+		</div>
+		<div class="form-group col-lg-2">
+			<label>Hora:</label>
+			<div class='input-group date' id='datetimepicker4'>
+				<input type='text' class="form-control"
+					placeholder="<fmt:formatDate pattern="hh:mm a"
+value="${palestra.dataInicio.time}" />"
+					name=hora value="${hora}" /> <span class="input-group-addon"><span
+					class="glyphicon glyphicon-time"></span> </span>
+			</div>
+		</div>
+		<div class="form-group col-lg-2">
+			<label>Preco:</label> <input type="text" class="form-control"
+				name="palestra.precoMinicurso" placeholder="Ex: R$15,00"
+				value="${palestra.precoMinicurso}" />
+		</div>
+		<div class="form-group col-lg-2">
+			<label>Vagas:</label> <input type="text" class="form-control"
+				name="palestra.vagas" placeholder="Ex: 50" value="${palestra.vagas}" />
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="form-group col-lg-8">
+			<label>Descricao:</label>
+			<textarea class="form-control" rows="6" name="palestra.descricao">${palestra.descricao}</textarea>
+		</div>
 	</div>
 
 

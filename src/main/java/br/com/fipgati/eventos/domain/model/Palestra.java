@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,13 +23,14 @@ public class Palestra {
 	private String palestrante;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dataInicio;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataFinal;
 	private BigDecimal precoMinicurso;
 	private int vagas;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Participante> listaInscritosPalestra;
+	@Column(length=100000)
 	private String descricao;
+
+	private String local;
 
 	public Palestra() {
 		// TODO Auto-generated constructor stub
@@ -35,6 +38,14 @@ public class Palestra {
 
 	public String getDescricao() {
 		return descricao;
+	}
+
+	public String getLocal() {
+		return local;
+	}
+
+	public void setLocal(String local) {
+		this.local = local;
 	}
 
 	public void setDescricao(String descricao) {
@@ -75,14 +86,6 @@ public class Palestra {
 
 	public void setDataInicio(Calendar dataInicio) {
 		this.dataInicio = dataInicio;
-	}
-
-	public Calendar getDataFinal() {
-		return dataFinal;
-	}
-
-	public void setDataFinal(Calendar dataFinal) {
-		this.dataFinal = dataFinal;
 	}
 
 	public BigDecimal getPrecoMinicurso() {
