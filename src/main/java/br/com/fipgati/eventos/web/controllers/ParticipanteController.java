@@ -16,6 +16,7 @@ import br.com.fipgati.eventos.domain.repositorio.EventoRepostorio;
 import br.com.fipgati.eventos.domain.repositorio.PalestraRepositorio;
 import br.com.fipgati.eventos.domain.repositorio.ParticipanteRepositorio;
 import br.com.fipgati.eventos.domain.repositorio.MinicursoRepositorio;
+import br.com.fipgati.eventos.web.interceptors.Auth;
 
 @Resource
 public class ParticipanteController {
@@ -25,16 +26,17 @@ public class ParticipanteController {
 	private Result result;
 	private MinicursoRepositorio minicursoRepositorio;
 	private PalestraRepositorio palestraRepositorio;
-	
-	public ParticipanteController(EventoRepostorio eventoRepostorio, ParticipanteRepositorio participanteRepositorio, Result result, MinicursoRepositorio minicursoRepositorio, PalestraRepositorio palestraRepositorio) {
-	
+
+	public ParticipanteController(EventoRepostorio eventoRepostorio, ParticipanteRepositorio participanteRepositorio, Result result,
+			MinicursoRepositorio minicursoRepositorio, PalestraRepositorio palestraRepositorio) {
+
 		this.eventoRepostorio = eventoRepostorio;
 		this.participanteRepositorio = participanteRepositorio;
 		this.result = result;
 		this.minicursoRepositorio = minicursoRepositorio;
 		this.palestraRepositorio = palestraRepositorio;
 	}
-	
+
 	@Get("/{evento.id}/inscricao")
 	public Evento newInscricao(Evento evento) {
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -46,15 +48,38 @@ public class ParticipanteController {
 	@Post
 	public void salvaInscricao(Evento evento, Participante participante, List<Minicurso> minicursoList, List<Palestra> palestraList) {
 		participanteRepositorio.save(participante);
-		for (int i = 0; i < minicursoList.size(); i++) {
-			Minicurso dbMinicurso = minicursoRepositorio.load(minicursoList.get(i).getId());
-			dbMinicurso.adicionarInscrito(participante);
+		Evento dbEvento = eventoRepostorio.load(evento.getId());
+		dbEvento.adicionarInscrito(participante);
+
+		if (!(minicursoList == null || minicursoList.size() == 0)) {
+			for (int i = 0; i < minicursoList.size(); i++) {
+				Minicurso dbMinicurso = minicursoRepositorio.load(minicursoList.get(i).getId());
+				dbMinicurso.adicionarInscrito(participante);
+			}
 		}
-		for (int i = 0; i < palestraList.size(); i++) {
-			Palestra dbPalestra = palestraRepositorio.load(palestraList.get(i).getId());
-			dbPalestra.adicionarInscrito(participante);
+
+		if (!(palestraList == null || palestraList.size() == 0)) {
+			for (int i = 0; i < palestraList.size(); i++) {
+				Palestra dbPalestra = palestraRepositorio.load(palestraList.get(i).getId());
+				dbPalestra.adicionarInscrito(participante);
+			}
 		}
 		result.redirectTo(EventoController.class).indexEvento(evento);
 	}
 	
+	@Get("/evento/{evento.id}/todosinscritos")
+	public void participantesAll(Evento evento){
+		Evento dbEvento = eventoRepostorio.load(evento.getId());
+		result.include("participantesList", dbEvento.getListaInscritos());
+	}
+	
+	@Auth
+	@Get("/evento/{evento.id}/participantes/{participante.id}/delete")
+	public void destroy(Evento evento, Participante participante) {
+		
+		Participante dbParticipante = participanteRepositorio.load(participante.getId());
+		
+	}
+
+
 }

@@ -15,6 +15,7 @@
 		<pattern>/evento/new</pattern>
 		<pattern>/evento/list</pattern>
 		<pattern>/</pattern>
+		<pattern>/login</pattern>
 	</decorator>
 	
 	<decorator name="gerencia" page="gerencia.jsp">

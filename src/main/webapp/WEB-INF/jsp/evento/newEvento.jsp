@@ -1,4 +1,4 @@
-<form action="${linkTo[EventoController].create}" method="post">
+<form action="${linkTo[EventoController].create}" method="post" enctype="multipart/form-data">
 	<div class="box">
 		<%@include file="form.jsp"%>
 		<div class="actions">

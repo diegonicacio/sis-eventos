@@ -13,6 +13,7 @@ import br.com.fipgati.eventos.domain.model.Minicurso;
 import br.com.fipgati.eventos.domain.repositorio.EventoRepostorio;
 import br.com.fipgati.eventos.domain.repositorio.MinicursoRepositorio;
 import br.com.fipgati.eventos.domain.util.DataUtil;
+import br.com.fipgati.eventos.web.interceptors.Auth;
 
 @Resource
 public class MinicursoController {
@@ -29,6 +30,7 @@ public class MinicursoController {
 		this.validator = validator;
 	}
 	
+	@Auth
 	@Get("/evento/gerenciar/{evento.id}/newmini")
 	public Minicurso newMinicurso(Evento evento){
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -37,6 +39,7 @@ public class MinicursoController {
 		return new Minicurso();
 	}
 	
+	@Auth
 	@Post("/evento/gerenciar/new/minicurso")
 	public void create(Minicurso minicurso, Evento evento, String data, String hora) {
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -51,6 +54,7 @@ public class MinicursoController {
 		result.redirectTo(this).list(dbEvento);
 	}
 	
+	@Auth
 	@Get("/evento/gerenciar/{evento.id}/minicursos")
 	public void list(Evento evento){
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -58,6 +62,7 @@ public class MinicursoController {
 		result.include("evento", dbEvento);
 	}
 	
+	@Auth
 	@Get("/evento/gerenciar/{evento.id}/minicurso/delete/{minicurso.id}")
 	public void destroy(Evento evento, Minicurso minicurso) {
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -67,6 +72,7 @@ public class MinicursoController {
 		result.redirectTo(this).list(evento);
 	}
 	
+	@Auth
 	@Get("/evento/gerenciar/{evento.id}/minicurso/edit/{minicurso.id}")
 	public Minicurso edit(Evento evento, Minicurso minicurso) {
 		result.include("action", "edit");
@@ -74,6 +80,7 @@ public class MinicursoController {
 		return minicursoRepositorio.load(minicurso.getId());
 	}
 	
+	@Auth
 	@Put("/evento/gerenciar/minicurso/edit")
 	public void update(Evento evento, Minicurso minicurso, String hora, String data) {
 		Minicurso dbMinicurso = this.minicursoRepositorio.load(minicurso.getId());
@@ -100,6 +107,7 @@ public class MinicursoController {
 		result.include("evento", dbEvento);
 	}
 	
+	@Auth
 	@Get("/{evento.id}/gerenciar/{minicurso.id}/participantes")
 	public void listaParticipantes(Evento evento, Minicurso minicurso){
 		Minicurso dbMinicurso = minicursoRepositorio.load(minicurso.getId());

@@ -8,10 +8,10 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.fipgati.eventos.domain.model.Evento;
-import br.com.fipgati.eventos.domain.model.Palestra;
 import br.com.fipgati.eventos.domain.model.Patrocinador;
 import br.com.fipgati.eventos.domain.repositorio.EventoRepostorio;
 import br.com.fipgati.eventos.domain.repositorio.PatrocinadorRepositorio;
+import br.com.fipgati.eventos.web.interceptors.Auth;
 
 
 @Resource
@@ -27,7 +27,7 @@ public class PatrocinadorController {
 		this.eventoRepostorio = eventoRepostorio;
 	}
 	
-
+	@Auth
 	@Get("/evento/gerenciar/{evento.id}/patroc")
 	public Patrocinador newPatrocinador(Evento evento){
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -36,6 +36,7 @@ public class PatrocinadorController {
 		return new Patrocinador();
 	}
 	
+	@Auth
 	@Post("/evento/gerenciar/new/patrocinador")
 	public void create(Patrocinador patrocinador, Evento evento) {
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -45,6 +46,7 @@ public class PatrocinadorController {
 		result.redirectTo(this).list(dbEvento);
 	}
 	
+	
 	@Get("/evento/gerenciar/{evento.id}/patrocinadores")
 	public void list(Evento evento){
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -52,6 +54,7 @@ public class PatrocinadorController {
 		result.include("evento", dbEvento);
 	}
 	
+	@Auth
 	@Get("/evento/gerenciar/{evento.id}/patrocinador/delete/{patrocinador.id}")
 	public void destroy(Evento evento, Patrocinador patrocinador) {
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -61,6 +64,7 @@ public class PatrocinadorController {
 		result.redirectTo(this).list(evento);
 	}
 	
+	@Auth
 	@Get("/evento/gerenciar/{evento.id}/patrocinador/edit/{patrocinador.id}")
 	public Patrocinador edit(Evento evento, Patrocinador patrocinador) {
 		result.include("action", "edit");
@@ -68,6 +72,7 @@ public class PatrocinadorController {
 		return patrocinadorRepositorio.load(patrocinador.getId());
 	}
 	
+	@Auth
 	@Put("/evento/gerenciar/patrocinador/edit")
 	public void update(Evento evento, Patrocinador patrocinador, String hora, String data) {
 		Patrocinador dbPatrocinador = this.patrocinadorRepositorio.load(patrocinador.getId());

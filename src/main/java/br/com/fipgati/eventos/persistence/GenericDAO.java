@@ -12,7 +12,7 @@ import br.com.fipgati.eventos.domain.repositorio.Repositorio;
 
 public abstract class GenericDAO<T> implements Repositorio<T> {
 	
-	private Session session;
+	protected Session session;
 	
 	private Class<T> entityClass;
 

@@ -17,7 +17,11 @@
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="${linkTo[EventoController].index}">Eventos</a></li>
-				<li><a href="#">Logout</a></li>
+				<li><c:if test="${usuarioWeb.logado}"> <a
+							href="${linkTo[UsuarioController].logout}">Olá ${usuarioWeb.nome} Logout</a>
+					</c:if> <c:if test="${empty usuarioWeb or not usuarioWeb.logado}">
+						<a href="${linkTo[UsuarioController].loginForm}">Login</a>
+					</c:if></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

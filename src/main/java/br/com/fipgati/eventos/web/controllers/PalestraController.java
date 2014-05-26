@@ -13,6 +13,7 @@ import br.com.fipgati.eventos.domain.model.Palestra;
 import br.com.fipgati.eventos.domain.repositorio.EventoRepostorio;
 import br.com.fipgati.eventos.domain.repositorio.PalestraRepositorio;
 import br.com.fipgati.eventos.domain.util.DataUtil;
+import br.com.fipgati.eventos.web.interceptors.Auth;
 
 @Resource
 public class PalestraController {
@@ -29,6 +30,7 @@ public class PalestraController {
 		this.validator = validator;
 	}
 	
+	@Auth
 	@Get("/evento/gerenciar/{evento.id}/newpales")
 	public Palestra newPalestra(Evento evento){
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -37,6 +39,7 @@ public class PalestraController {
 		return new Palestra();
 	}
 	
+	@Auth
 	@Post("/evento/gerenciar/new/palestra")
 	public void create(Palestra palestra, Evento evento, String data, String hora) {
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -59,6 +62,7 @@ public class PalestraController {
 		result.include("evento", dbEvento);
 	}
 	
+	@Auth
 	@Get("/evento/gerenciar/{evento.id}/palestra/delete/{palestra.id}")
 	public void destroy(Evento evento, Palestra palestra) {
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -68,6 +72,7 @@ public class PalestraController {
 		result.redirectTo(this).list(evento);
 	}
 	
+	@Auth
 	@Get("/evento/gerenciar/{evento.id}/palestra/edit/{palestra.id}")
 	public Palestra edit(Evento evento, Palestra palestra) {
 		result.include("action", "edit");
@@ -75,6 +80,7 @@ public class PalestraController {
 		return palestraRepositorio.load(palestra.getId());
 	}
 	
+	@Auth
 	@Put("/evento/gerenciar/palestra/edit")
 	public void update(Evento evento, Palestra palestra, String hora, String data) {
 		Palestra dbPalestra = this.palestraRepositorio.load(palestra.getId());
@@ -94,6 +100,7 @@ public class PalestraController {
 		result.redirectTo(this).list(evento);
 	}
 	
+	@Auth
 	@Get("/{evento.id}/palestras")
 	public void indexPalestra(Evento evento){
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -101,6 +108,7 @@ public class PalestraController {
 		result.include("evento", dbEvento);
 	}
 	
+	@Auth
 	@Get("/{evento.id}/gerenciar/{palestra.id}/participantess")
 	public void listaParticipantes(Evento evento, Palestra palestra){
 		Palestra dbPalestra = palestraRepositorio.load(palestra.getId());

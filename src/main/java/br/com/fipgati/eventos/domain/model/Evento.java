@@ -52,11 +52,13 @@ public class Evento implements Serializable {
 
 	private String abreviacao;
 
-	@ElementCollection
-	@CollectionTable(name = "caminho_imagens", joinColumns = @JoinColumn(name = "evento_id"))
-	@Column(name = "caminho")
-	@Fetch(FetchMode.SELECT)
-	private List<String> pathToImgSlides;
+//	@ElementCollection
+//	@CollectionTable(name = "caminho_imagens", joinColumns = @JoinColumn(name = "evento_id"))
+//	@Column(name = "caminho")
+//	@Fetch(FetchMode.SELECT)
+//	private List<String> pathToImgSlides;
+	
+	private boolean imagens;
 
 	private boolean status;
 	private boolean finalizado;
@@ -72,6 +74,16 @@ public class Evento implements Serializable {
 
 		this.nome = nome;
 		dataInicio = data;
+	}
+	
+	
+
+	public boolean isImagens() {
+		return imagens;
+	}
+
+	public void setImagens(boolean imagens) {
+		this.imagens = imagens;
 	}
 
 	public String getAbreviacao() {
@@ -150,9 +162,9 @@ public class Evento implements Serializable {
 		return dataInicio;
 	}
 
-	public void adicionarImagem(String path) {
-		pathToImgSlides.add(path);
-	}
+//	public void adicionarImagem(String path) {
+//		pathToImgSlides.add(path);
+//	}
 
 	public boolean isStatus() {
 		return status;
@@ -162,9 +174,9 @@ public class Evento implements Serializable {
 		this.status = status;
 	}
 
-	public List<String> getPathToImgSlides() {
-		return pathToImgSlides;
-	}
+//	public List<String> getPathToImgSlides() {
+//		return pathToImgSlides;
+//	}
 
 	public void setDataInicio(Calendar dataInicio) {
 		this.dataInicio = dataInicio;
