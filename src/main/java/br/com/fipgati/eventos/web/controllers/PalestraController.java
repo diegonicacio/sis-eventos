@@ -4,6 +4,9 @@ import java.text.ParseException;
 
 import javax.servlet.ServletContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
@@ -14,7 +17,6 @@ import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 import br.com.fipgati.eventos.domain.model.Evento;
 import br.com.fipgati.eventos.domain.model.Palestra;
 import br.com.fipgati.eventos.domain.repositorio.EventoRepostorio;
-import br.com.fipgati.eventos.domain.repositorio.MinicursoRepositorio;
 import br.com.fipgati.eventos.domain.repositorio.PalestraRepositorio;
 import br.com.fipgati.eventos.domain.util.ArquivoUtil;
 import br.com.fipgati.eventos.domain.util.DataUtil;
@@ -23,6 +25,7 @@ import br.com.fipgati.eventos.web.interceptors.Auth;
 @Resource
 public class PalestraController {
 
+	private static final Logger logger = LoggerFactory.getLogger(PalestraController.class);  
 	private Result result;
 	private PalestraRepositorio palestraRepositorio;
 	private EventoRepostorio eventoRepostorio;
@@ -65,7 +68,7 @@ public class PalestraController {
 			palestra.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		validator.onErrorRedirectTo(this).newPalestra(dbEvento);
 		palestraRepositorio.save(palestra);
@@ -121,14 +124,14 @@ public class PalestraController {
 			dbPalestra.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		palestraRepositorio.update(dbPalestra);
 		result.redirectTo(this).list(evento);
 	}
 
 	@Auth
-	@Get("/{evento.id}/gerenciar/{palestra.id}/participantess")
+	@Get("/evento/gerenciar/{evento.id}/{palestra.id}/participantess")
 	public void listaParticipantes(Evento evento, Palestra palestra) {
 		Palestra dbPalestra = palestraRepositorio.load(palestra.getId());
 		result.include("participanteList", dbPalestra.getListaInscritosMinicurso());

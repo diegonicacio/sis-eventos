@@ -63,7 +63,7 @@ value="${evento.dataInicio.time}" />"
 		<div class="form-group col-lg-8">
 			<label>Descricao:</label>
 			<textarea class="form-control" rows="6" name="evento.descricao"
-				placeholder="Aqui é interessante se colocar uma descrição de até 3 linhas por questões de estetica, porem nada impede que sejam adicionados mais informações, o sistema redimensionará automaticamente a caixa de texto e vai ficar show.">${evento.descricao}</textarea>
+				placeholder="Aqui é interessante se colocar uma descrição de até 5 linhas por questões de estetica, porem nada impede que sejam adicionados mais informações, o sistema redimensionará automaticamente a caixa de texto e vai ficar show.">${evento.descricao}</textarea>
 		</div>
 	</div>
 
@@ -71,7 +71,7 @@ value="${evento.dataInicio.time}" />"
 		<div class="form-group col-lg-8">
 			<label>Descricao 2:</label>
 			<textarea class="form-control" rows="6" name="evento.descricao2"
-				placeholder="Aqui é interessante se colocar uma descrição de até 5 linhas por questões de estetica, porem nada impede que sejam adicionados mais informações, o sistema redimensionará automaticamente a caixa de texto e vai ficar show.">${evento.descricao2}</textarea>
+				placeholder="Aqui é interessante se colocar uma descrição de até 15 linhas por questões de estetica, porem nada impede que sejam adicionados mais informações, o sistema redimensionará automaticamente a caixa de texto e vai ficar show.">${evento.descricao2}</textarea>
 		</div>
 	</div>
 

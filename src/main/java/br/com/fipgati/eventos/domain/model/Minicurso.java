@@ -15,6 +15,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * Classe modelo responsavel por representar a entidade Minicurso.
+ * 
+ * @author Diego
+ * 
+ * @version 0.1
+ * 
+ * @see Palestrante
+ *
+ */
 @Entity
 public class Minicurso {
 
@@ -45,7 +55,7 @@ public class Minicurso {
 	private String local;
 
 	public Minicurso() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public String getLocal() {

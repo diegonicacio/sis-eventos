@@ -10,8 +10,9 @@
 		<div class="col-md-5">
 			<h3>${minicurso.tema}</h3>
 			<h5>
-				<fmt:formatDate type="both" value="${minicurso.dataInicio.time}" /> | ${minicurso.local}
-			</h5>
+				<fmt:formatDate type="both" value="${minicurso.dataInicio.time}" />
+					| ${minicurso.local} <br> <br> ${minicurso.palestrante}
+				</h5>
 			<h1><small>R$: ${minicurso.precoMinicurso}</small></h1>
 			<p>${minicurso.descricao}</p>
 		</div>

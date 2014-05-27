@@ -4,6 +4,9 @@ import java.text.ParseException;
 
 import javax.servlet.ServletContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -21,6 +24,7 @@ import br.com.fipgati.eventos.web.interceptors.Auth;
 @Resource
 public class EventoController {
 
+	private static final Logger logger = LoggerFactory.getLogger(EventoController.class);  
 	private ArquivoUtil arquivoUtil;
 	private EventoRepostorio eventoRepostorio;
 	private Result result;
@@ -40,6 +44,7 @@ public class EventoController {
 	@Path("/")
 	public void index() {
 		result.include("eventoList", eventoRepostorio.listAll());
+		
 	}
 
 	@Auth
@@ -55,7 +60,7 @@ public class EventoController {
 		try {
 			evento.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
 		} catch (ParseException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		eventoRepostorio.save(evento);
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
@@ -115,8 +120,7 @@ public class EventoController {
 		try {
 			dbEvento.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 
 //		String path = context.getRealPath("/arquivos");

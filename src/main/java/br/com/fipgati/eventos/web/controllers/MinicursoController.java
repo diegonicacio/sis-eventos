@@ -4,6 +4,9 @@ import java.text.ParseException;
 
 import javax.servlet.ServletContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
@@ -22,6 +25,7 @@ import br.com.fipgati.eventos.web.interceptors.Auth;
 @Resource
 public class MinicursoController {
 
+	private static final Logger logger = LoggerFactory.getLogger(MinicursoController.class);  
 	private Result result;
 	private MinicursoRepositorio minicursoRepositorio;
 	private EventoRepostorio eventoRepostorio;
@@ -56,7 +60,7 @@ public class MinicursoController {
 		try {
 			minicurso.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
 		} catch (ParseException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		validator.onErrorRedirectTo(this).newMinicurso(dbEvento);
 		minicursoRepositorio.save(minicurso);
@@ -113,8 +117,8 @@ public class MinicursoController {
 		try {
 			dbMinicurso.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
+			
 		}
 		minicursoRepositorio.update(dbMinicurso);
 		result.redirectTo(this).list(evento);
@@ -129,7 +133,7 @@ public class MinicursoController {
 	}
 
 	@Auth
-	@Get("/{evento.id}/gerenciar/{minicurso.id}/participantes")
+	@Get("/evento/gerenciar/{evento.id}/{minicurso.id}/participantes")
 	public void listaParticipantes(Evento evento, Minicurso minicurso) {
 		Minicurso dbMinicurso = minicursoRepositorio.load(minicurso.getId());
 		result.include("participanteList", dbMinicurso.getListaInscritosMinicurso());

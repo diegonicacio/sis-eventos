@@ -84,10 +84,18 @@
 			<c:forEach items="${eventoList}" var="evento">
 				<c:if test="${evento.finalizado}">
 					<div class="col-sm-4 text-center">
-						<img class="img-responsive" src="http://placehold.it/750x450"
-							alt="">
+						<a href="${linkTo[EventoController].indexEvento[evento]}"><c:if
+								test="${evento.capa}">
+								<img class="img-responsive"
+									src="${pageContext.request.contextPath}/arquivos/${evento.id}capa.jpg"
+									alt="">
+							</c:if> <c:if test="${!evento.capa}">
+								<img class="img-responsive"
+									src="http://placehold.it/750x450"
+									alt="">
+							</c:if> </a>
 						<h3>
-							${evento.nome} <small><fmt:formatDate dateStyle="short"
+							${evento.abreviacao} <small><fmt:formatDate dateStyle="short"
 									value="${evento.dataInicio.time}" /></small>
 						</h3>
 						<a class="btn btn-default btn-sm"
@@ -102,9 +110,11 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
+	<c:if test="${usuarioWeb.logado}">
 	<a class="btn btn-default btn-sm"
 		href="${linkTo[EventoController].newEvento}" title="Adicionar Evento">
 		<span class="glyphicon glyphicon-plus"> Evento</span>
 	</a>
+	</c:if>
 
 </div>

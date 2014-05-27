@@ -1,6 +1,7 @@
 package br.com.fipgati.eventos.domain.model;
 
 import java.io.Serializable;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,6 +16,23 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * Classe modelo da entidade Evento.
+ * 
+ * @author Diego
+ * 
+ * @version 0.1
+ * 
+ * @see Palestra
+ * @see Minicurso
+ * @see Participante
+ * 
+ */
+
+/**
+ * @author Diego
+ *
+ */
 @Entity
 public class Evento implements Serializable {
 
@@ -59,8 +77,23 @@ public class Evento implements Serializable {
 	private boolean status;
 	private boolean finalizado;
 
+	/**
+	 * Construtor default requirido pelo Vraptor.
+	 * 
+	 */
+
 	public Evento() {
 	}
+
+	/**
+	 * Construtor responsavel por inicializar as listas.
+	 * 
+	 * @param String
+	 *            Nome do Evento
+	 * @param Calendar
+	 *            Data de Inicio do Evento
+	 * 
+	 */
 
 	public Evento(String nome, Calendar data) {
 		listaMinicursos = new ArrayList<Minicurso>();
@@ -72,42 +105,87 @@ public class Evento implements Serializable {
 		dataInicio = data;
 	}
 
+	/**
+	 * Checa se existe uma capa ou não no evento.
+	 * 
+	 * @return boolean
+	 */
+
 	public boolean isCapa() {
 		return capa;
 	}
+
+	/**
+	 * True = Existe uma capa para o evento. False = Não existe, utilizar imagem
+	 * padrão.
+	 * 
+	 * @param boolean
+	 */
 
 	public void setCapa(boolean capa) {
 		this.capa = capa;
 	}
 
+	/**
+	 * Checa se existe um frame ou não no evento.
+	 * 
+	 * @return boolean
+	 */
+
 	public boolean isFrame() {
 		return frame;
 	}
+
+	/**
+	 * True = Existe uma imagem para o evento. False = Não existe, utilizar
+	 * imagem padrão.
+	 * 
+	 * @param boolean
+	 */
 
 	public void setFrame(boolean frame) {
 		this.frame = frame;
 	}
 
+	/**
+	 * Checa se existe uma imagem Carrosel ou não no evento.
+	 * 
+	 * @return boolean
+	 */
+
 	public boolean isCarrosel() {
 		return carrosel;
 	}
+
+	/**
+	 * True = Existe uma imagem para o evento. False = Não existe, utilizar
+	 * imagem padrão.
+	 * 
+	 * @param boolean
+	 */
 
 	public void setCarrosel(boolean carrosel) {
 		this.carrosel = carrosel;
 	}
 
-	public boolean isImagens() {
-		return capa;
-	}
-
-	public void setImagens(boolean imagens) {
-		this.capa = imagens;
-	}
-
+	
+	
+	/**
+	 * Retorna a abreviação do evento.
+	 * 
+	 * @return String Abreviação do Evento
+	 */
+	
 	public String getAbreviacao() {
 		return abreviacao;
 	}
 
+	/**
+	 * Seta a abreviação do evento.
+	 * 
+	 * @param String Abreviação do evento
+	 */
+	
 	public void setAbreviacao(String abreviacao) {
 		this.abreviacao = abreviacao;
 	}
