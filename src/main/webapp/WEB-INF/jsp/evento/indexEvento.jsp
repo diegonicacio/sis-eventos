@@ -1,74 +1,96 @@
- <div class="container">
 
-        <div class="row">
-            <div class="box">
-                <div class="col-lg-12 text-center">
-                    <div id="carousel-example-generic" class="carousel slide">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators hidden-xs">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                        </ol>
+<div class="container">
 
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img class="img-responsive img-full" src="http://placehold.it/843x403/" alt="">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive img-full" src="http://placehold.it/843x403/" alt="">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive img-full" src="http://placehold.it/843x403/" alt="">
-                            </div>
-                        </div>
+	<div class="row">
+		<div class="box">
+			<div class="col-lg-12 text-center">
+				<div id="carousel-example-generic" class="carousel slide">
+					<!-- Indicators -->
+					<ol class="carousel-indicators hidden-xs">
+						<li data-target="#carousel-example-generic" data-slide-to="0"
+							class="active"></li>
+						<!--  <li data-target="#carousel-example-generic" data-slide-to="1"></li> -->
+						<!-- <li data-target="#carousel-example-generic" data-slide-to="2"></li> -->
+					</ol>
 
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                            <span class="icon-prev"></span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                            <span class="icon-next"></span>
-                        </a>
-                    </div>
-                    <h2>
-                        <small>${evento.nome}</small>
-                    </h2>
-                    <h1>
-                        <span class="brand-name">${evento.abreviacao}</span>
-                    </h1>
-                    <hr class="tagline-divider">
-                    <h2>
-                        <small>Inscrição: <strong> R$ ${evento.preco}</strong></small>
-                    </h2>
-                </div>
-            </div>
-        </div>
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner">
+						<c:if test="${!evento.carrosel}">
+							<div class="item active">
+								<img class="img-responsive img-full"
+									src="http://placehold.it/843x403/" alt="">
+							</div>
+						</c:if>
+						<c:if test="${evento.carrosel}">
+							<div class="item active">
+								<img class="img-responsive img-full"
+									src="${pageContext.request.contextPath}/arquivos/${evento.id}carrosel.jpg"
+									alt="">
+							</div>
+						</c:if>
+						<!--	<div class="item">
+							<img class="img-responsive img-full"
+								src="http://placehold.it/843x403/" alt="">
+						</div>
+						<div class="item">
+							<img class="img-responsive img-full"
+								src="http://placehold.it/843x403/" alt="">
+						</div>  -->
+					</div>
 
-        <div class="row">
-            <div class="box">
-                <div class="col-lg-12">
-                    <hr>
-                    <h2 class="intro-text text-center">Sobre o <strong>${evento.abreviacao}</strong>
-                    </h2>
-                    <hr>
-                    <img class="img-responsive img-border img-left" src="http://placehold.it/250x150/" alt="">
-                    <hr class="visible-xs">
-                    <p>${evento.descricao}</p>
-                </div>
-            </div>
-        </div>
+					<!-- Controls -->
+					<a class="left carousel-control" href="#carousel-example-generic"
+						data-slide="prev"> <span class="icon-prev"></span>
+					</a> <a class="right carousel-control" href="#carousel-example-generic"
+						data-slide="next"> <span class="icon-next"></span>
+					</a>
+				</div>
+				<h2>
+					<small>${evento.nome}</small>
+				</h2>
+				<h1>
+					<span class="brand-name">${evento.abreviacao}</span>
+				</h1>
+				<hr class="tagline-divider">
+				<h2>
+					<small>Inscrição: <strong> R$ ${evento.preco}</strong></small>
+				</h2>
+			</div>
+		</div>
+	</div>
 
-        <div class="row">
-            <div class="box">
-                <div class="col-lg-12">
-                    <hr>
-                    <h2 class="intro-text text-center">Não <strong>PERCA!</strong>
-                    </h2>
-                    <hr>
-                    <p>${evento.descricao2 }</p>
-                </div>
-            </div>
-        </div>
-    </div> 
+	<div class="row">
+		<div class="box">
+			<div class="col-lg-12">
+				<hr>
+				<h2 class="intro-text text-center">
+					Sobre o <strong>${evento.abreviacao}</strong>
+				</h2>
+				<hr>
+				<c:if test="${!evento.frame}">
+					<img class="img-responsive img-border img-left"
+						src="http://placehold.it/250x150/" alt="">
+				</c:if>
+				<c:if test="${evento.frame}">
+					<img class="img-responsive img-border img-left"
+						src="${pageContext.request.contextPath}/arquivos/${evento.id}frame.jpg" alt="">
+				</c:if>
+				<hr class="visible-xs">
+				<p>${evento.descricao}</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="box">
+			<div class="col-lg-12">
+				<hr>
+				<h2 class="intro-text text-center">
+					Não <strong>PERCA!</strong>
+				</h2>
+				<hr>
+				<p>${evento.descricao2 }</p>
+			</div>
+		</div>
+	</div>
+</div>

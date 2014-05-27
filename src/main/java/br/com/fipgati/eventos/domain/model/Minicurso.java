@@ -29,8 +29,18 @@ public class Minicurso {
 	private int vagas;
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Participante> listaInscritosMinicurso;
-	@Column(length=100000)
+	@Column(length = 100000)
 	private String descricao;
+
+	private boolean capa;
+
+	public boolean isCapa() {
+		return capa;
+	}
+
+	public void setCapa(boolean capa) {
+		this.capa = capa;
+	}
 
 	private String local;
 
@@ -64,6 +74,10 @@ public class Minicurso {
 
 	public void adicionarInscrito(Participante inscrito) {
 		this.listaInscritosMinicurso.add(inscrito);
+	}
+	
+	public void removerInscrito(Participante participante){
+		this.listaInscritosMinicurso.remove(participante);
 	}
 
 	public String getTema() {

@@ -2,7 +2,8 @@
 	<c:forEach items="${minicursoList}" var="minicurso">
 	<div class="row">
 		<div class="col-md-7">
-			<a> <img class="img-responsive" src="http://placehold.it/750x350">
+			<a> <c:if test="${!minicurso.capa}"> <img class="img-responsive" src="http://placehold.it/750x350"></c:if>
+			<c:if test="${minicurso.capa}"> <img class="img-responsive" src="${pageContext.request.contextPath}/arquivos/${minicurso.id}mc.jpg"></c:if>
 			</a>
 		</div>
 

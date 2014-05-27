@@ -10,11 +10,11 @@
 				<c:if test="${!evento.finalizado}">
 					<div class="col-sm-4 text-center">
 						<a href="${linkTo[EventoController].indexEvento[evento]}"><c:if
-								test="${evento.imagens}">
+								test="${evento.capa}">
 								<img class="img-responsive"
-									src="${pageContext.request.contextPath}/arquivos/${evento.nome}0.jpg"
+									src="${pageContext.request.contextPath}/arquivos/${evento.id}capa.jpg"
 									alt="">
-							</c:if> <c:if test="${!evento.imagens}">
+							</c:if> <c:if test="${!evento.capa}">
 								<img class="img-responsive"
 									src="http://placehold.it/750x450"
 									alt="">

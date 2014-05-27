@@ -1,4 +1,4 @@
-<form action="${linkTo[EventoController].update}" method="post">
+<form action="${linkTo[EventoController].update}" method="post" >
 	<div class="box">
 		<%@include file="form.jsp"%>
 		<div class="actions">

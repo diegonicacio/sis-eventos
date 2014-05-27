@@ -20,7 +20,7 @@
 				<li><a href="${linkTo[PalestraController].list[evento]}">Palestras</a></li>
 				<li><a href="${linkTo[PatrocinadorController].list[evento]}">Patrocinadores</a></li>
 				<li><a href="#">Miscellaneous</a></li>
-				<li><a href="#"><small>Logout</small></a></li>
+				<li><a href="${linkTo[UsuarioController].logout}"><small>Logout</small></a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

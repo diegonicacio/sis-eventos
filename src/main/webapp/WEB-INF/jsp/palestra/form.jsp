@@ -3,7 +3,7 @@
 		<input type="hidden" name="palestra.id" value="${palestra.id}" />
 		<input type="hidden" name="evento.id" value="${evento.id}" />
 	</c:if>
-	
+
 	<div class="row">
 		<div class="form-group col-lg-8">
 			<label>Tema:</label> <input type="text" class="form-control"
@@ -65,6 +65,13 @@ value="${palestra.dataInicio.time}" />"
 			<label>Descricao:</label>
 			<textarea class="form-control" rows="6" name="palestra.descricao">${palestra.descricao}</textarea>
 		</div>
+	</div>
+
+	<div class="row">
+		<a class="btn btn-primary btn-file"> Selecione o arquivo<input
+			type="file" name="pl"
+			<c:if test="${action == 'edit'}">disabled</c:if> />
+		</a>
 	</div>
 
 

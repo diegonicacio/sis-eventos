@@ -24,7 +24,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="${linkTo[EventoController].indexEvento[evento]}">Home</a></li>
 				<li><a href="${linkTo[MinicursoController].indexMinicurso[evento]}">Minicursos</a></li>
-				<li><a href="${linkto[PalestraController].indexPalestra[evento]}">Palestras</a></li>
+				<li><a href="${linkTo[PalestraController].indexPalestra[evento]}">Palestras</a></li>
 				<li><a href="${linkTo[ParticipanteController].newInscricao[evento]}">Inscrição</a></li>
 			</ul>
 		</div>

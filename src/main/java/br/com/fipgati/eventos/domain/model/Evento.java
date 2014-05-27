@@ -6,21 +6,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Evento implements Serializable {
@@ -45,20 +38,23 @@ public class Evento implements Serializable {
 	private List<Participante> listaInscritos;
 	@ManyToMany
 	private List<Usuario> organizadores;
-	@Column(length=100000)
+	@Column(length = 100000)
 	private String descricao;
-	@Column(length=100000)
+	@Column(length = 100000)
 	private String descricao2;
 
 	private String abreviacao;
 
-//	@ElementCollection
-//	@CollectionTable(name = "caminho_imagens", joinColumns = @JoinColumn(name = "evento_id"))
-//	@Column(name = "caminho")
-//	@Fetch(FetchMode.SELECT)
-//	private List<String> pathToImgSlides;
-	
-	private boolean imagens;
+	// @ElementCollection
+	// @CollectionTable(name = "caminho_imagens", joinColumns = @JoinColumn(name
+	// = "evento_id"))
+	// @Column(name = "caminho")
+	// @Fetch(FetchMode.SELECT)
+	// private List<String> pathToImgSlides;
+
+	private boolean capa;
+	private boolean frame;
+	private boolean carrosel;
 
 	private boolean status;
 	private boolean finalizado;
@@ -75,15 +71,37 @@ public class Evento implements Serializable {
 		this.nome = nome;
 		dataInicio = data;
 	}
-	
-	
+
+	public boolean isCapa() {
+		return capa;
+	}
+
+	public void setCapa(boolean capa) {
+		this.capa = capa;
+	}
+
+	public boolean isFrame() {
+		return frame;
+	}
+
+	public void setFrame(boolean frame) {
+		this.frame = frame;
+	}
+
+	public boolean isCarrosel() {
+		return carrosel;
+	}
+
+	public void setCarrosel(boolean carrosel) {
+		this.carrosel = carrosel;
+	}
 
 	public boolean isImagens() {
-		return imagens;
+		return capa;
 	}
 
 	public void setImagens(boolean imagens) {
-		this.imagens = imagens;
+		this.capa = imagens;
 	}
 
 	public String getAbreviacao() {
@@ -162,9 +180,9 @@ public class Evento implements Serializable {
 		return dataInicio;
 	}
 
-//	public void adicionarImagem(String path) {
-//		pathToImgSlides.add(path);
-//	}
+	// public void adicionarImagem(String path) {
+	// pathToImgSlides.add(path);
+	// }
 
 	public boolean isStatus() {
 		return status;
@@ -174,9 +192,9 @@ public class Evento implements Serializable {
 		this.status = status;
 	}
 
-//	public List<String> getPathToImgSlides() {
-//		return pathToImgSlides;
-//	}
+	// public List<String> getPathToImgSlides() {
+	// return pathToImgSlides;
+	// }
 
 	public void setDataInicio(Calendar dataInicio) {
 		this.dataInicio = dataInicio;

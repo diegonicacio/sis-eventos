@@ -1,7 +1,6 @@
 package br.com.fipgati.eventos.web.controllers;
 
 import java.text.ParseException;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -52,19 +51,44 @@ public class EventoController {
 
 	@Auth
 	@Post("/evento/evento")
-	public void create(Evento evento, String data, String hora, List<UploadedFile> files) {
+	public void create(Evento evento, String data, String hora, UploadedFile capa, UploadedFile frame, UploadedFile carrosel) {
 		try {
 			evento.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		eventoRepostorio.save(evento);
+		Evento dbEvento = eventoRepostorio.load(evento.getId());
+		String path = context.getRealPath("/arquivos");
+		StringBuilder sb;
 
-		if (files != null) {
-			evento.setImagens(true);
-			for (int i = 0; i < files.size(); i++) {
-				arquivoUtil.salva(files.get(i), context.getRealPath("/arquivos"), String.valueOf(evento.getNome()) + i + ".jpg");
-			}
+		if (capa != null) {
+			evento.setCapa(true);
+			sb = new StringBuilder();
+			sb.append(dbEvento.getId()).append("capa.jpg");
+			System.out.println(sb.toString());
+			System.out.println(path + sb.toString());
+			arquivoUtil.salva(capa, path, sb.toString());
 		}
+
+		if (frame != null) {
+			evento.setFrame(true);
+			sb = new StringBuilder();
+			sb.append(dbEvento.getId()).append("frame.jpg");
+			System.out.println(sb.toString());
+			System.out.println(path + sb.toString());
+			arquivoUtil.salva(frame, path, sb.toString());
+		}
+
+		if (carrosel != null) {
+			evento.setCarrosel(true);
+			sb = new StringBuilder();
+			sb.append(dbEvento.getId()).append("carrosel.jpg");
+			System.out.println(sb.toString());
+			System.out.println(path + sb.toString());
+			arquivoUtil.salva(carrosel, path, sb.toString());
+		}
+
 		eventoRepostorio.save(evento);
 		result.redirectTo(this).index();
 	}
@@ -78,8 +102,8 @@ public class EventoController {
 
 	@Auth
 	@Put("/eventoedit/evento")
-	public void update(Evento evento, String hora, String data, List<UploadedFile> files) {
-		System.out.println(evento.getId());
+	public void update(Evento evento, String hora, String data, UploadedFile capa, UploadedFile frame, UploadedFile carrosel) {
+
 		Evento dbEvento = this.eventoRepostorio.load(evento.getId());
 		dbEvento.setAbreviacao(evento.getAbreviacao());
 		dbEvento.setNome(evento.getNome());
@@ -88,18 +112,43 @@ public class EventoController {
 		dbEvento.setVagas(evento.getVagas());
 		dbEvento.setDescricao(evento.getDescricao());
 		dbEvento.setDescricao2(evento.getDescricao2());
-		if (files != null) {
-			evento.setImagens(true);
-			for (int i = 0; i < files.size(); i++) {
-				arquivoUtil.salva(files.get(i), context.getRealPath("/arquivos"), String.valueOf(evento.getNome()) + i + ".jpg");
-			}
-		}
 		try {
 			dbEvento.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+//		String path = context.getRealPath("/arquivos");
+//		StringBuilder sb;
+
+//		if (capa != null) {
+//			evento.setCapa(true);
+//			sb = new StringBuilder();
+//			sb.append(dbEvento.getId()).append("capa.jpg");
+//			arquivoUtil.salva(capa, path, sb.toString());
+//		} else {
+//			dbEvento.setCapa(false);
+//		}
+//
+//		if (frame != null) {
+//			evento.setFrame(true);
+//			sb = new StringBuilder();
+//			sb.append(dbEvento.getId()).append("frame.jpg");
+//			arquivoUtil.salva(frame, path, sb.toString());
+//		} else {
+//			dbEvento.setFrame(false);
+//		}
+//
+//		if (carrosel != null) {
+//			evento.setCarrosel(true);
+//			sb = new StringBuilder();
+//			sb.append(dbEvento.getId()).append("carrosel.jpg");
+//			arquivoUtil.salva(carrosel, path, sb.toString());
+//		} else {
+//			dbEvento.setCarrosel(false);
+//		}
+
 		eventoRepostorio.update(dbEvento);
 		result.redirectTo(this).index();
 	}

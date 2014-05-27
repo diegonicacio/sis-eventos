@@ -75,11 +75,15 @@ value="${evento.dataInicio.time}" />"
 		</div>
 	</div>
 
+
+
 	<div class="row">
 		<a class="btn btn-primary btn-file"> Selecione o arquivo<input
-			type="file" name="files[]" />
+			type="file" name="capa" <c:if test="${action == 'edit'}">disabled</c:if>/>
 		</a> <a class="btn btn-primary btn-file"> Selecione o arquivo<input
-			type="file" name="files[]" />
+			type="file" name="frame" <c:if test="${action == 'edit'}">disabled</c:if> />
+		</a> <a class="btn btn-primary btn-file"> Selecione o arquivo<input
+			type="file" name="carrosel" <c:if test="${action == 'edit'}">disabled</c:if> />
 		</a>
 	</div>
 

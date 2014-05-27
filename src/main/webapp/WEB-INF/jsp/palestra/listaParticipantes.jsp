@@ -1,3 +1,4 @@
+<input type="hidden" name="palestra.id" value="${palestra.id}"/>
 <div class="row">
 	<!-- /.col-lg-12 -->
 	<div class="col-lg-12">
@@ -22,7 +23,7 @@
 									<td><c:if test="${participante.pagou}">SIM</c:if> <c:if
 											test="${!participante.pagou}">NAO</c:if></td>
 									<td><a class="btn btn-default btn-sm"
-										href="#"
+										href="${linkTo[ParticipanteController].destroyPalestra[evento][palestra][participante]}"
 										title="Deletar Inscrição"
 										onclick="return confirm('Tem certeza que deseja cancelar a inscrição?')">
 											<span class="glyphicon glyphicon-remove-sign"></span>

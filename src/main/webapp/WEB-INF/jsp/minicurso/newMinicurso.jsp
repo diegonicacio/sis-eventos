@@ -1,4 +1,4 @@
-<form action="${linkTo[MinicursoController].create}" method="post">
+<form action="${linkTo[MinicursoController].create}" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="evento.id" value="${evento.id}" />
 	<div class="box">
 		<%@include file="form.jsp"%>

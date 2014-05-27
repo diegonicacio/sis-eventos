@@ -69,6 +69,13 @@ value="${minicurso.dataInicio.time}" />"
 		</div>
 	</div>
 
+	<div class="row">
+		<a class="btn btn-primary btn-file"> Selecione o arquivo<input
+			type="file" name="mc"
+			<c:if test="${action == 'edit'}">disabled</c:if> />
+		</a>
+	</div>
+
 
 </fieldset>
 

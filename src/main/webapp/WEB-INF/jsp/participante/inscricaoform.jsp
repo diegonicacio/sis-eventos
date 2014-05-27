@@ -37,7 +37,7 @@
 	<div class="row">
 		<div class="form-group col-lg-8">
 			<c:forEach items="${palestraList}" var="palestra" varStatus="p">
-				<input type="checkbox" name="minicursoList[${p.index}].id"
+				<input type="checkbox" name="palestraList[${p.index}].id"
 					value="${palestra.id}" />${palestra.tema}
 				<br>
 			</c:forEach>

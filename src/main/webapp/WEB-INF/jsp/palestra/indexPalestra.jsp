@@ -1,8 +1,9 @@
 <div class="box">
-	<c:forEach items="${palestraList}" var="minicurso">
+	<c:forEach items="${palestraList}" var="palestra">
 	<div class="row">
 		<div class="col-md-7">
-			<a> <img class="img-responsive" src="http://placehold.it/750x350">
+			<a> <c:if test="${!palestra.capa}"> <img class="img-responsive" src="http://placehold.it/750x350"></c:if>
+			<c:if test="${palestra.capa}"> <img class="img-responsive" src="${pageContext.request.contextPath}/arquivos/${palestra.id}pl.jpg"></c:if>
 			</a>
 		</div>
 

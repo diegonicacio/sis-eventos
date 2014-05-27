@@ -1,6 +1,7 @@
 package br.com.fipgati.eventos.domain.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -27,13 +28,24 @@ public class Palestra {
 	private int vagas;
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Participante> listaInscritosPalestra;
-	@Column(length=100000)
+	@Column(length = 100000)
 	private String descricao;
+
+	private boolean capa;
+	
+
+	public boolean isCapa() {
+		return capa;
+	}
+
+	public void setCapa(boolean capa) {
+		this.capa = capa;
+	}
 
 	private String local;
 
 	public Palestra() {
-		// TODO Auto-generated constructor stub
+		listaInscritosPalestra = new ArrayList<Participante>();
 	}
 
 	public String getDescricao() {
@@ -62,6 +74,10 @@ public class Palestra {
 
 	public void adicionarInscrito(Participante inscrito) {
 		this.listaInscritosPalestra.add(inscrito);
+	}
+	
+	public void removerInscrito(Participante participante){
+		this.listaInscritosPalestra.remove(participante);
 	}
 
 	public String getTema() {

@@ -1,0 +1,4 @@
+Form de gestão de imagens em gerencia;
+transferir listaParticipante.jsp pra folder participantes
+Consertar logica de Delecao de participantes (ta excluindo de palestra/evento/minicurso ao mesmo tempo)
+Refazer entidade Participante com as devidas listas;

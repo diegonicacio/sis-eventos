@@ -42,6 +42,7 @@ public class ParticipanteController {
 		Evento dbEvento = eventoRepostorio.load(evento.getId());
 		Hibernate.initialize(dbEvento);
 		result.include("minicursoList", dbEvento.getListaMinicursos());
+		result.include("palestraList", dbEvento.getListaPalestras());
 		return dbEvento;
 	}
 
@@ -74,10 +75,26 @@ public class ParticipanteController {
 	}
 	
 	@Auth
-	@Get("/evento/{evento.id}/participantes/{participante.id}/delete")
-	public void destroy(Evento evento, Participante participante) {
-		
+	@Get("/evento/{evento.id}/minicurso/{minicurso.id}/participante/{participante.id}/deleteminicurso")
+	public void destroyMinicurso(Evento evento, Minicurso minicurso, Participante participante) {
 		Participante dbParticipante = participanteRepositorio.load(participante.getId());
+		
+		Minicurso dbMinicurso = minicursoRepositorio.load(minicurso.getId());
+		dbMinicurso.removerInscrito(dbParticipante);
+		minicursoRepositorio.update(dbMinicurso);
+		result.redirectTo(MinicursoController.class).listaParticipantes(evento, dbMinicurso);
+		
+	}
+	
+	@Auth
+	@Get("/evento/{evento.id}/minicurso/{palestra.id}/participante/{participante.id}/deletepalestra")
+	public void destroyPalestra(Evento evento, Palestra palestra, Participante participante) {
+		Participante dbParticipante = participanteRepositorio.load(participante.getId());
+		
+		Palestra dbPalestra = palestraRepositorio.load(palestra.getId());
+		dbPalestra.removerInscrito(dbParticipante);
+		palestraRepositorio.update(dbPalestra);
+		result.redirectTo(PalestraController.class).listaParticipantes(evento, dbPalestra);
 		
 	}
 

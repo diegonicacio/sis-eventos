@@ -30,7 +30,8 @@
 										href="${linkTo[PalestraController].edit[evento][palestra]}"
 										title="Editar Minicurso"> <span
 											class="glyphicon glyphicon-pencil"></span>
-									</a><a class="btn btn-default btn-sm" href="#"
+									</a><a class="btn btn-default btn-sm"
+										href="${linkTo[PalestraController].listaParticipantes[evento][palestra]}"
 										title="Ver lista de inscritos"> <span
 											class="glyphicon glyphicon-search"></span>
 									</a><a class="btn btn-default btn-sm"
