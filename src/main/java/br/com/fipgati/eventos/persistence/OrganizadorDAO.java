@@ -9,8 +9,8 @@ import br.com.fipgati.eventos.domain.repositorio.OrganizadorRepositorio;
 @Component
 public class OrganizadorDAO extends GenericDAO<Usuario> implements OrganizadorRepositorio {
 
-	public OrganizadorDAO(Session session) {
-		super(Usuario.class, session);
-	}
-	
+    public OrganizadorDAO(Session session) {
+        super(Usuario.class, session);
+    }
+
 }

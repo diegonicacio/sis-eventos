@@ -36,318 +36,317 @@ import javax.persistence.TemporalType;
 @Entity
 public class Evento implements Serializable {
 
-	@Id
-	@GeneratedValue
-	private Long id;
-	private String nome;
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "dataInicio")
-	private Calendar dataInicio;
-	private String local;
-	@OneToMany
-	private List<Minicurso> listaMinicursos;
-	@OneToMany
-	private List<Palestra> listaPalestras;
-	private BigDecimal preco;
-	@ManyToMany
-	private List<Patrocinador> listaPatrocinadores;
-	private int vagas;
-	@ManyToMany
-	private List<Participante> listaInscritos;
-	@ManyToMany
-	private List<Usuario> organizadores;
-	@Column(length = 100000)
-	private String descricao;
-	@Column(length = 100000)
-	private String descricao2;
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String nome;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "dataInicio")
+    private Calendar dataInicio;
+    private String local;
+    @OneToMany
+    private List<Minicurso> listaMinicursos;
+    @OneToMany
+    private List<Palestra> listaPalestras;
+    private BigDecimal preco;
+    @ManyToMany
+    private List<Patrocinador> listaPatrocinadores;
+    private int vagas;
+    @ManyToMany
+    private List<Participante> listaInscritos;
+    @ManyToMany
+    private List<Usuario> organizadores;
+    @Column(length = 100000)
+    private String descricao;
+    @Column(length = 100000)
+    private String descricao2;
 
-	private String abreviacao;
+    private String abreviacao;
 
-	// @ElementCollection
-	// @CollectionTable(name = "caminho_imagens", joinColumns = @JoinColumn(name
-	// = "evento_id"))
-	// @Column(name = "caminho")
-	// @Fetch(FetchMode.SELECT)
-	// private List<String> pathToImgSlides;
+    // @ElementCollection
+    // @CollectionTable(name = "caminho_imagens", joinColumns = @JoinColumn(name
+    // = "evento_id"))
+    // @Column(name = "caminho")
+    // @Fetch(FetchMode.SELECT)
+    // private List<String> pathToImgSlides;
 
-	private boolean capa;
-	private boolean frame;
-	private boolean carrosel;
+    private boolean capa;
+    private boolean frame;
+    private boolean carrosel;
 
-	private boolean status;
-	private boolean finalizado;
+    private boolean status;
+    private boolean finalizado;
 
-	/**
-	 * Construtor default requirido pelo Vraptor.
-	 * 
-	 */
+    /**
+     * Construtor default requirido pelo Vraptor.
+     * 
+     */
 
-	public Evento() {
-	}
+    public Evento() {
+    }
 
-	/**
-	 * Construtor responsavel por inicializar as listas.
-	 * 
-	 * @param String
-	 *            Nome do Evento
-	 * @param Calendar
-	 *            Data de Inicio do Evento
-	 * 
-	 */
+    /**
+     * Construtor responsavel por inicializar as listas.
+     * 
+     * @param String
+     *            Nome do Evento
+     * @param Calendar
+     *            Data de Inicio do Evento
+     * 
+     */
 
-	public Evento(String nome, Calendar data) {
-		listaMinicursos = new ArrayList<Minicurso>();
-		listaPalestras = new ArrayList<Palestra>();
-		listaPatrocinadores = new ArrayList<Patrocinador>();
-		listaInscritos = new ArrayList<Participante>();
+    public Evento(String nome, Calendar data) {
+        listaMinicursos = new ArrayList<Minicurso>();
+        listaPalestras = new ArrayList<Palestra>();
+        listaPatrocinadores = new ArrayList<Patrocinador>();
+        listaInscritos = new ArrayList<Participante>();
 
-		this.nome = nome;
-		dataInicio = data;
-	}
+        this.nome = nome;
+        dataInicio = data;
+    }
 
-	/**
-	 * Checa se existe uma capa ou não no evento.
-	 * 
-	 * @return boolean
-	 */
+    /**
+     * Checa se existe uma capa ou não no evento.
+     * 
+     * @return boolean
+     */
 
-	public boolean isCapa() {
-		return capa;
-	}
+    public boolean isCapa() {
+        return capa;
+    }
 
-	/**
-	 * True = Existe uma capa para o evento. False = Não existe, utilizar imagem
-	 * padrão.
-	 * 
-	 * @param boolean
-	 */
+    /**
+     * True = Existe uma capa para o evento. False = Não existe, utilizar imagem
+     * padrão.
+     * 
+     * @param boolean
+     */
 
-	public void setCapa(boolean capa) {
-		this.capa = capa;
-	}
+    public void setCapa(boolean capa) {
+        this.capa = capa;
+    }
 
-	/**
-	 * Checa se existe um frame ou não no evento.
-	 * 
-	 * @return boolean
-	 */
+    /**
+     * Checa se existe um frame ou não no evento.
+     * 
+     * @return boolean
+     */
 
-	public boolean isFrame() {
-		return frame;
-	}
+    public boolean isFrame() {
+        return frame;
+    }
 
-	/**
-	 * True = Existe uma imagem para o evento. False = Não existe, utilizar
-	 * imagem padrão.
-	 * 
-	 * @param boolean
-	 */
+    /**
+     * True = Existe uma imagem para o evento. False = Não existe, utilizar
+     * imagem padrão.
+     * 
+     * @param boolean
+     */
 
-	public void setFrame(boolean frame) {
-		this.frame = frame;
-	}
+    public void setFrame(boolean frame) {
+        this.frame = frame;
+    }
 
-	/**
-	 * Checa se existe uma imagem Carrosel ou não no evento.
-	 * 
-	 * @return boolean
-	 */
+    /**
+     * Checa se existe uma imagem Carrosel ou não no evento.
+     * 
+     * @return boolean
+     */
 
-	public boolean isCarrosel() {
-		return carrosel;
-	}
+    public boolean isCarrosel() {
+        return carrosel;
+    }
 
-	/**
-	 * True = Existe uma imagem para o evento. False = Não existe, utilizar
-	 * imagem padrão.
-	 * 
-	 * @param boolean
-	 */
+    /**
+     * True = Existe uma imagem para o evento. False = Não existe, utilizar
+     * imagem padrão.
+     * 
+     * @param boolean
+     */
 
-	public void setCarrosel(boolean carrosel) {
-		this.carrosel = carrosel;
-	}
+    public void setCarrosel(boolean carrosel) {
+        this.carrosel = carrosel;
+    }
 
-	
-	
-	/**
-	 * Retorna a abreviação do evento.
-	 * 
-	 * @return String Abreviação do Evento
-	 */
-	
-	public String getAbreviacao() {
-		return abreviacao;
-	}
+    /**
+     * Retorna a abreviação do evento.
+     * 
+     * @return String Abreviação do Evento
+     */
 
-	/**
-	 * Seta a abreviação do evento.
-	 * 
-	 * @param String Abreviação do evento
-	 */
-	
-	public void setAbreviacao(String abreviacao) {
-		this.abreviacao = abreviacao;
-	}
+    public String getAbreviacao() {
+        return abreviacao;
+    }
 
-	public String getDescricao2() {
-		return descricao2;
-	}
+    /**
+     * Seta a abreviação do evento.
+     * 
+     * @param String
+     *            Abreviação do evento
+     */
 
-	public void setDescricao2(String descricao2) {
-		this.descricao2 = descricao2;
-	}
+    public void setAbreviacao(String abreviacao) {
+        this.abreviacao = abreviacao;
+    }
 
-	public boolean isFinalizado() {
-		return finalizado;
-	}
+    public String getDescricao2() {
+        return descricao2;
+    }
 
-	public void setFinalizado(boolean finalizado) {
-		this.finalizado = finalizado;
-	}
+    public void setDescricao2(String descricao2) {
+        this.descricao2 = descricao2;
+    }
 
-	public List<Usuario> getOrganizadores() {
-		return organizadores;
-	}
+    public boolean isFinalizado() {
+        return finalizado;
+    }
 
-	public void addMinicurso(Minicurso minicurso) {
-		this.listaMinicursos.add(minicurso);
-	}
+    public void setFinalizado(boolean finalizado) {
+        this.finalizado = finalizado;
+    }
 
-	public void addPalestra(Palestra palestra) {
-		this.listaPalestras.add(palestra);
-	}
+    public List<Usuario> getOrganizadores() {
+        return organizadores;
+    }
 
-	public void addPatrocinador(Patrocinador patrocinador) {
-		this.listaPatrocinadores.add(patrocinador);
-	}
+    public void addMinicurso(Minicurso minicurso) {
+        this.listaMinicursos.add(minicurso);
+    }
 
-	public void removeMinicurso(Minicurso minicurso) {
-		this.listaMinicursos.remove(minicurso);
-	}
+    public void addPalestra(Palestra palestra) {
+        this.listaPalestras.add(palestra);
+    }
 
-	public void removePalestra(Palestra palestra) {
-		this.listaPalestras.remove(palestra);
-	}
+    public void addPatrocinador(Patrocinador patrocinador) {
+        this.listaPatrocinadores.add(patrocinador);
+    }
 
-	public void removePatrocinador(Patrocinador patrocinador) {
-		this.listaPatrocinadores.remove(patrocinador);
-	}
+    public void removeMinicurso(Minicurso minicurso) {
+        this.listaMinicursos.remove(minicurso);
+    }
 
-	public String getDescricao() {
-		return descricao;
-	}
+    public void removePalestra(Palestra palestra) {
+        this.listaPalestras.remove(palestra);
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public void removePatrocinador(Patrocinador patrocinador) {
+        this.listaPatrocinadores.remove(patrocinador);
+    }
 
-	public void addOrganizador(Usuario organizador) {
-		this.organizadores.add(organizador);
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public void removeOrganizador(Usuario organizador) {
-		this.organizadores.remove(organizador);
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public void setOrganizadores(List<Usuario> organizadores) {
-		this.organizadores = organizadores;
-	}
+    public void addOrganizador(Usuario organizador) {
+        this.organizadores.add(organizador);
+    }
 
-	public Calendar getDataInicio() {
-		return dataInicio;
-	}
+    public void removeOrganizador(Usuario organizador) {
+        this.organizadores.remove(organizador);
+    }
 
-	// public void adicionarImagem(String path) {
-	// pathToImgSlides.add(path);
-	// }
+    public void setOrganizadores(List<Usuario> organizadores) {
+        this.organizadores = organizadores;
+    }
 
-	public boolean isStatus() {
-		return status;
-	}
+    public Calendar getDataInicio() {
+        return dataInicio;
+    }
 
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+    // public void adicionarImagem(String path) {
+    // pathToImgSlides.add(path);
+    // }
 
-	// public List<String> getPathToImgSlides() {
-	// return pathToImgSlides;
-	// }
+    public boolean isStatus() {
+        return status;
+    }
 
-	public void setDataInicio(Calendar dataInicio) {
-		this.dataInicio = dataInicio;
-	}
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    // public List<String> getPathToImgSlides() {
+    // return pathToImgSlides;
+    // }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setDataInicio(Calendar dataInicio) {
+        this.dataInicio = dataInicio;
+    }
 
-	public void adicionarMinicurso(Minicurso minicurso) {
-		this.listaMinicursos.add(minicurso);
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void adicionarPalestra(Palestra palestra) {
-		this.listaPalestras.add(palestra);
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void adicionarPatrocinador(Patrocinador patrocinador) {
-		this.listaPatrocinadores.add(patrocinador);
-	}
+    public void adicionarMinicurso(Minicurso minicurso) {
+        this.listaMinicursos.add(minicurso);
+    }
 
-	public void adicionarInscrito(Participante inscrito) {
-		this.listaInscritos.add(inscrito);
-	}
+    public void adicionarPalestra(Palestra palestra) {
+        this.listaPalestras.add(palestra);
+    }
 
-	public List<Minicurso> getListaMinicursos() {
-		return listaMinicursos;
-	}
+    public void adicionarPatrocinador(Patrocinador patrocinador) {
+        this.listaPatrocinadores.add(patrocinador);
+    }
 
-	public List<Palestra> getListaPalestras() {
-		return listaPalestras;
-	}
+    public void adicionarInscrito(Participante inscrito) {
+        this.listaInscritos.add(inscrito);
+    }
 
-	public List<Patrocinador> getListaPatrocinadores() {
-		return listaPatrocinadores;
-	}
+    public List<Minicurso> getListaMinicursos() {
+        return listaMinicursos;
+    }
 
-	public List<Participante> getListaInscritos() {
-		return listaInscritos;
-	}
+    public List<Palestra> getListaPalestras() {
+        return listaPalestras;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public List<Patrocinador> getListaPatrocinadores() {
+        return listaPatrocinadores;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public List<Participante> getListaInscritos() {
+        return listaInscritos;
+    }
 
-	public String getLocal() {
-		return local;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setLocal(String local) {
-		this.local = local;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public BigDecimal getPreco() {
-		return preco;
-	}
+    public String getLocal() {
+        return local;
+    }
 
-	public void setPreco(BigDecimal preco) {
-		this.preco = preco;
-	}
+    public void setLocal(String local) {
+        this.local = local;
+    }
 
-	public int getVagas() {
-		return vagas;
-	}
+    public BigDecimal getPreco() {
+        return preco;
+    }
 
-	public void setVagas(int vagas) {
-		this.vagas = vagas;
-	}
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
+    public int getVagas() {
+        return vagas;
+    }
+
+    public void setVagas(int vagas) {
+        this.vagas = vagas;
+    }
 
 }

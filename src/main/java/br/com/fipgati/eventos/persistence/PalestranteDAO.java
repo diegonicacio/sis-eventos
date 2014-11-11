@@ -7,10 +7,10 @@ import br.com.fipgati.eventos.domain.model.Palestrante;
 import br.com.fipgati.eventos.domain.repositorio.PalestranteRepositorio;
 
 @Component
-public class PalestranteDAO extends GenericDAO<Palestrante> implements PalestranteRepositorio{
+public class PalestranteDAO extends GenericDAO<Palestrante> implements PalestranteRepositorio {
 
-	public PalestranteDAO(Session session) {
-		super(Palestrante.class, session);
-	}
-	
+    public PalestranteDAO(Session session) {
+        super(Palestrante.class, session);
+    }
+
 }

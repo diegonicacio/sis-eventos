@@ -17,111 +17,110 @@ import javax.persistence.TemporalType;
 @Entity
 public class Palestra {
 
-	@Id
-	@GeneratedValue
-	private Long id;
-	private String tema;
-	private String palestrante;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataInicio;
-	private BigDecimal precoMinicurso;
-	private int vagas;
-	@ManyToMany(cascade = CascadeType.ALL)
-	private List<Participante> listaInscritosPalestra;
-	@Column(length = 100000)
-	private String descricao;
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String tema;
+    private String palestrante;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar dataInicio;
+    private BigDecimal precoMinicurso;
+    private int vagas;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Participante> listaInscritosPalestra;
+    @Column(length = 100000)
+    private String descricao;
 
-	private boolean capa;
-	
+    private boolean capa;
 
-	public boolean isCapa() {
-		return capa;
-	}
+    public boolean isCapa() {
+        return capa;
+    }
 
-	public void setCapa(boolean capa) {
-		this.capa = capa;
-	}
+    public void setCapa(boolean capa) {
+        this.capa = capa;
+    }
 
-	private String local;
+    private String local;
 
-	public Palestra() {
-		listaInscritosPalestra = new ArrayList<Participante>();
-	}
+    public Palestra() {
+        listaInscritosPalestra = new ArrayList<Participante>();
+    }
 
-	public String getDescricao() {
-		return descricao;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public String getLocal() {
-		return local;
-	}
+    public String getLocal() {
+        return local;
+    }
 
-	public void setLocal(String local) {
-		this.local = local;
-	}
+    public void setLocal(String local) {
+        this.local = local;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void adicionarInscrito(Participante inscrito) {
-		this.listaInscritosPalestra.add(inscrito);
-	}
-	
-	public void removerInscrito(Participante participante){
-		this.listaInscritosPalestra.remove(participante);
-	}
+    public void adicionarInscrito(Participante inscrito) {
+        this.listaInscritosPalestra.add(inscrito);
+    }
 
-	public String getTema() {
-		return tema;
-	}
+    public void removerInscrito(Participante participante) {
+        this.listaInscritosPalestra.remove(participante);
+    }
 
-	public void setTema(String tema) {
-		this.tema = tema;
-	}
+    public String getTema() {
+        return tema;
+    }
 
-	public String getPalestrante() {
-		return palestrante;
-	}
+    public void setTema(String tema) {
+        this.tema = tema;
+    }
 
-	public void setPalestrante(String palestrante) {
-		this.palestrante = palestrante;
-	}
+    public String getPalestrante() {
+        return palestrante;
+    }
 
-	public Calendar getDataInicio() {
-		return dataInicio;
-	}
+    public void setPalestrante(String palestrante) {
+        this.palestrante = palestrante;
+    }
 
-	public void setDataInicio(Calendar dataInicio) {
-		this.dataInicio = dataInicio;
-	}
+    public Calendar getDataInicio() {
+        return dataInicio;
+    }
 
-	public BigDecimal getPrecoMinicurso() {
-		return precoMinicurso;
-	}
+    public void setDataInicio(Calendar dataInicio) {
+        this.dataInicio = dataInicio;
+    }
 
-	public void setPrecoMinicurso(BigDecimal precoMinicurso) {
-		this.precoMinicurso = precoMinicurso;
-	}
+    public BigDecimal getPrecoMinicurso() {
+        return precoMinicurso;
+    }
 
-	public int getVagas() {
-		return vagas;
-	}
+    public void setPrecoMinicurso(BigDecimal precoMinicurso) {
+        this.precoMinicurso = precoMinicurso;
+    }
 
-	public void setVagas(int vagas) {
-		this.vagas = vagas;
-	}
+    public int getVagas() {
+        return vagas;
+    }
 
-	public List<Participante> getListaInscritosMinicurso() {
-		return listaInscritosPalestra;
-	}
+    public void setVagas(int vagas) {
+        this.vagas = vagas;
+    }
+
+    public List<Participante> getListaInscritosMinicurso() {
+        return listaInscritosPalestra;
+    }
 
 }

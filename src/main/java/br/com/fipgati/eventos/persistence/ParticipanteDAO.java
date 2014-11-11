@@ -9,10 +9,10 @@ import br.com.fipgati.eventos.domain.model.Usuario;
 import br.com.fipgati.eventos.domain.repositorio.ParticipanteRepositorio;
 
 @Component
-public class ParticipanteDAO extends GenericDAO<Participante> implements ParticipanteRepositorio{
-	
-	public ParticipanteDAO(Session session) {
-		super(Participante.class, session);
-	}
+public class ParticipanteDAO extends GenericDAO<Participante> implements ParticipanteRepositorio {
+
+    public ParticipanteDAO(Session session) {
+        super(Participante.class, session);
+    }
 
 }

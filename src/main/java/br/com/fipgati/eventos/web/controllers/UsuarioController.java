@@ -13,39 +13,39 @@ import br.com.fipgati.eventos.web.UsuarioWeb;
 @Resource
 public class UsuarioController {
 
-	private UsuarioRepositorio usuarioRepositorio;
-	private Result result;
-	private UsuarioWeb usuarioWeb;
-	private Validator validator;
+    private UsuarioRepositorio usuarioRepositorio;
+    private Result result;
+    private UsuarioWeb usuarioWeb;
+    private Validator validator;
 
-	public UsuarioController(UsuarioRepositorio usuarioRepositorio, Result result, UsuarioWeb usuarioWeb, Validator validator) {
-		this.usuarioRepositorio = usuarioRepositorio;
-		this.result = result;
-		this.usuarioWeb = usuarioWeb;
-		this.validator = validator;
-	}
+    public UsuarioController(UsuarioRepositorio usuarioRepositorio, Result result, UsuarioWeb usuarioWeb, Validator validator) {
+        this.usuarioRepositorio = usuarioRepositorio;
+        this.result = result;
+        this.usuarioWeb = usuarioWeb;
+        this.validator = validator;
+    }
 
-	@Path("/login")
-	public void loginForm() {
+    @Path("/login")
+    public void loginForm() {
 
-	}
+    }
 
-	@Post("/login/auth")
-	public void login(Usuario usuario) {
-		Usuario dbUsuario = usuarioRepositorio.carrega(usuario);
-		if (dbUsuario == null) {
-			validator.add(new ValidationMessage("Login e/ou senha inválidos", "usuario.login"));
-		}
-		validator.onErrorUsePageOf(UsuarioController.class).loginForm();
-		usuarioWeb.login(dbUsuario);
-		result.redirectTo(EventoController.class).index();
+    @Post("/login/auth")
+    public void login(Usuario usuario) {
+        Usuario dbUsuario = usuarioRepositorio.carrega(usuario);
+        if (dbUsuario == null) {
+            validator.add(new ValidationMessage("Login e/ou senha inválidos", "usuario.login"));
+        }
+        validator.onErrorUsePageOf(UsuarioController.class).loginForm();
+        usuarioWeb.login(dbUsuario);
+        result.redirectTo(EventoController.class).index();
 
-	}
+    }
 
-	@Path("/logout")
-	public void logout() {
-		usuarioWeb.logout();
-		result.redirectTo(EventoController.class).index();
-	}
+    @Path("/logout")
+    public void logout() {
+        usuarioWeb.logout();
+        result.redirectTo(EventoController.class).index();
+    }
 
 }

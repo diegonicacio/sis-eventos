@@ -7,9 +7,9 @@ import br.com.fipgati.eventos.domain.model.Palestra;
 import br.com.fipgati.eventos.domain.repositorio.PalestraRepositorio;
 
 @Component
-public class PalestraDAO extends GenericDAO<Palestra> implements PalestraRepositorio{
+public class PalestraDAO extends GenericDAO<Palestra> implements PalestraRepositorio {
 
-	public PalestraDAO(Session session) {
-		super(Palestra.class, session);
-	}
+    public PalestraDAO(Session session) {
+        super(Palestra.class, session);
+    }
 }

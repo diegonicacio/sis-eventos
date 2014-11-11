@@ -25,118 +25,118 @@ import br.com.fipgati.eventos.web.interceptors.Auth;
 @Resource
 public class PalestraController {
 
-	private static final Logger logger = LoggerFactory.getLogger(PalestraController.class);  
-	private Result result;
-	private PalestraRepositorio palestraRepositorio;
-	private EventoRepostorio eventoRepostorio;
-	private Validator validator;
-	private ServletContext context;
-	private ArquivoUtil arquivoUtil;
+    private static final Logger logger = LoggerFactory.getLogger(PalestraController.class);
+    private Result result;
+    private PalestraRepositorio palestraRepositorio;
+    private EventoRepostorio eventoRepostorio;
+    private Validator validator;
+    private ServletContext context;
+    private ArquivoUtil arquivoUtil;
 
-	public PalestraController(Result result, ArquivoUtil arquivoUtil, PalestraRepositorio palestraRepositorio, EventoRepostorio eventoRepostorio,
-			Validator validator, ServletContext context) {
-		this.result = result;
-		this.palestraRepositorio = palestraRepositorio;
-		this.eventoRepostorio = eventoRepostorio;
-		this.validator = validator;
-		this.context = context;
-		this.arquivoUtil = arquivoUtil;
-	}
+    public PalestraController(Result result, ArquivoUtil arquivoUtil, PalestraRepositorio palestraRepositorio, EventoRepostorio eventoRepostorio,
+            Validator validator, ServletContext context) {
+        this.result = result;
+        this.palestraRepositorio = palestraRepositorio;
+        this.eventoRepostorio = eventoRepostorio;
+        this.validator = validator;
+        this.context = context;
+        this.arquivoUtil = arquivoUtil;
+    }
 
-	@Auth
-	@Get("/evento/gerenciar/{evento.id}/newpales")
-	public Palestra newPalestra(Evento evento) {
-		Evento dbEvento = eventoRepostorio.load(evento.getId());
-		result.include("evento", dbEvento);
-		System.out.println("Ta passando por aqui");
-		return new Palestra();
-	}
-	
-	@Get("/{evento.id}/palestras")
-	public void indexPalestra(Evento evento) {
-		Evento dbEvento = eventoRepostorio.load(evento.getId());
-		result.include("palestraList", dbEvento.getListaPalestras());
-		result.include("evento", dbEvento);
-	}
+    @Auth
+    @Get("/evento/gerenciar/{evento.id}/newpales")
+    public Palestra newPalestra(Evento evento) {
+        Evento dbEvento = eventoRepostorio.load(evento.getId());
+        result.include("evento", dbEvento);
+        System.out.println("Ta passando por aqui");
+        return new Palestra();
+    }
 
-	@Auth
-	@Post("/evento/gerenciar/new/palestra")
-	public void create(Palestra palestra, Evento evento, String data, String hora, UploadedFile pl) {
-		Evento dbEvento = eventoRepostorio.load(evento.getId());
-		dbEvento.addPalestra(palestra);
-		try {
-			palestra.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			logger.error(e.getMessage());
-		}
-		validator.onErrorRedirectTo(this).newPalestra(dbEvento);
-		palestraRepositorio.save(palestra);
-		Palestra dbPalestra = palestraRepositorio.load(palestra.getId());
-		String path = context.getRealPath("/arquivos");
-		StringBuilder sb;
+    @Get("/{evento.id}/palestras")
+    public void indexPalestra(Evento evento) {
+        Evento dbEvento = eventoRepostorio.load(evento.getId());
+        result.include("palestraList", dbEvento.getListaPalestras());
+        result.include("evento", dbEvento);
+    }
 
-		if (pl != null) {
-			dbPalestra.setCapa(true);
-			sb = new StringBuilder();
-			sb.append(dbPalestra.getId()).append("pl.jpg");
-			arquivoUtil.salva(pl, path, sb.toString());
-		}
-		result.redirectTo(this).list(dbEvento);
-	}
+    @Auth
+    @Post("/evento/gerenciar/new/palestra")
+    public void create(Palestra palestra, Evento evento, String data, String hora, UploadedFile pl) {
+        Evento dbEvento = eventoRepostorio.load(evento.getId());
+        dbEvento.addPalestra(palestra);
+        try {
+            palestra.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            logger.error(e.getMessage());
+        }
+        validator.onErrorRedirectTo(this).newPalestra(dbEvento);
+        palestraRepositorio.save(palestra);
+        Palestra dbPalestra = palestraRepositorio.load(palestra.getId());
+        String path = context.getRealPath("/arquivos");
+        StringBuilder sb;
 
-	@Get("/evento/gerenciar/{evento.id}/palestras")
-	public void list(Evento evento) {
-		Evento dbEvento = eventoRepostorio.load(evento.getId());
-		result.include("palestraList", dbEvento.getListaPalestras());
-		result.include("evento", dbEvento);
-	}
+        if (pl != null) {
+            dbPalestra.setCapa(true);
+            sb = new StringBuilder();
+            sb.append(dbPalestra.getId()).append("pl.jpg");
+            arquivoUtil.salva(pl, path, sb.toString());
+        }
+        result.redirectTo(this).list(dbEvento);
+    }
 
-	@Auth
-	@Get("/evento/gerenciar/{evento.id}/palestra/delete/{palestra.id}")
-	public void destroy(Evento evento, Palestra palestra) {
-		Evento dbEvento = eventoRepostorio.load(evento.getId());
-		dbEvento.removePalestra(palestraRepositorio.load(palestra.getId()));
-		eventoRepostorio.update(dbEvento);
-		palestraRepositorio.delete(palestraRepositorio.load(palestra.getId()));
-		result.redirectTo(this).list(evento);
-	}
+    @Get("/evento/gerenciar/{evento.id}/palestras")
+    public void list(Evento evento) {
+        Evento dbEvento = eventoRepostorio.load(evento.getId());
+        result.include("palestraList", dbEvento.getListaPalestras());
+        result.include("evento", dbEvento);
+    }
 
-	@Auth
-	@Get("/evento/gerenciar/{evento.id}/palestra/edit/{palestra.id}")
-	public Palestra edit(Evento evento, Palestra palestra) {
-		result.include("action", "edit");
-		result.include("evento", eventoRepostorio.load(evento.getId()));
-		return palestraRepositorio.load(palestra.getId());
-	}
+    @Auth
+    @Get("/evento/gerenciar/{evento.id}/palestra/delete/{palestra.id}")
+    public void destroy(Evento evento, Palestra palestra) {
+        Evento dbEvento = eventoRepostorio.load(evento.getId());
+        dbEvento.removePalestra(palestraRepositorio.load(palestra.getId()));
+        eventoRepostorio.update(dbEvento);
+        palestraRepositorio.delete(palestraRepositorio.load(palestra.getId()));
+        result.redirectTo(this).list(evento);
+    }
 
-	@Auth
-	@Put("/evento/gerenciar/palestra/edit")
-	public void update(Evento evento, Palestra palestra, String hora, String data) {
-		Palestra dbPalestra = this.palestraRepositorio.load(palestra.getId());
-		dbPalestra.setTema(palestra.getTema());
-		dbPalestra.setPalestrante(palestra.getPalestrante());
-		dbPalestra.setLocal(palestra.getLocal());
-		dbPalestra.setPrecoMinicurso(palestra.getPrecoMinicurso());
-		dbPalestra.setVagas(palestra.getVagas());
-		dbPalestra.setDescricao(palestra.getDescricao());
-		try {
-			dbPalestra.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			logger.error(e.getMessage());
-		}
-		palestraRepositorio.update(dbPalestra);
-		result.redirectTo(this).list(evento);
-	}
+    @Auth
+    @Get("/evento/gerenciar/{evento.id}/palestra/edit/{palestra.id}")
+    public Palestra edit(Evento evento, Palestra palestra) {
+        result.include("action", "edit");
+        result.include("evento", eventoRepostorio.load(evento.getId()));
+        return palestraRepositorio.load(palestra.getId());
+    }
 
-	@Auth
-	@Get("/evento/gerenciar/{evento.id}/{palestra.id}/participantess")
-	public void listaParticipantes(Evento evento, Palestra palestra) {
-		Palestra dbPalestra = palestraRepositorio.load(palestra.getId());
-		result.include("participanteList", dbPalestra.getListaInscritosMinicurso());
-		result.include("palestra", dbPalestra);
-		result.include("evento", eventoRepostorio.load(evento.getId()));
-	}
+    @Auth
+    @Put("/evento/gerenciar/palestra/edit")
+    public void update(Evento evento, Palestra palestra, String hora, String data) {
+        Palestra dbPalestra = this.palestraRepositorio.load(palestra.getId());
+        dbPalestra.setTema(palestra.getTema());
+        dbPalestra.setPalestrante(palestra.getPalestrante());
+        dbPalestra.setLocal(palestra.getLocal());
+        dbPalestra.setPrecoMinicurso(palestra.getPrecoMinicurso());
+        dbPalestra.setVagas(palestra.getVagas());
+        dbPalestra.setDescricao(palestra.getDescricao());
+        try {
+            dbPalestra.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            logger.error(e.getMessage());
+        }
+        palestraRepositorio.update(dbPalestra);
+        result.redirectTo(this).list(evento);
+    }
+
+    @Auth
+    @Get("/evento/gerenciar/{evento.id}/{palestra.id}/participantess")
+    public void listaParticipantes(Evento evento, Palestra palestra) {
+        Palestra dbPalestra = palestraRepositorio.load(palestra.getId());
+        result.include("participanteList", dbPalestra.getListaInscritosMinicurso());
+        result.include("palestra", dbPalestra);
+        result.include("evento", eventoRepostorio.load(evento.getId()));
+    }
 
 }

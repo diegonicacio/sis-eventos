@@ -7,60 +7,60 @@ import javax.persistence.Id;
 @Entity
 public class Palestrante {
 
-	@Id
-	@GeneratedValue
-	private Long id;
-	private String nome;
-	private String formacao;
-	private String artigosPublicados;
-	private String ocupacao;
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String nome;
+    private String formacao;
+    private String artigosPublicados;
+    private String ocupacao;
 
-	public Palestrante(String nome) {
-		this.nome = nome;
-	}
-	
-	public Palestrante() {
-		// TODO Auto-generated constructor stub
-	}
+    public Palestrante(String nome) {
+        this.nome = nome;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Palestrante() {
+        // TODO Auto-generated constructor stub
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public String getFormacao() {
-		return formacao;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setFormacao(String formacao) {
-		this.formacao = formacao;
-	}
+    public String getFormacao() {
+        return formacao;
+    }
 
-	public String getArtigosPublicados() {
-		return artigosPublicados;
-	}
+    public void setFormacao(String formacao) {
+        this.formacao = formacao;
+    }
 
-	public void setArtigosPublicados(String artigosPublicados) {
-		this.artigosPublicados = artigosPublicados;
-	}
+    public String getArtigosPublicados() {
+        return artigosPublicados;
+    }
 
-	public String getOcupacao() {
-		return ocupacao;
-	}
+    public void setArtigosPublicados(String artigosPublicados) {
+        this.artigosPublicados = artigosPublicados;
+    }
 
-	public void setOcupacao(String ocupacao) {
-		this.ocupacao = ocupacao;
-	}
+    public String getOcupacao() {
+        return ocupacao;
+    }
+
+    public void setOcupacao(String ocupacao) {
+        this.ocupacao = ocupacao;
+    }
 
 }

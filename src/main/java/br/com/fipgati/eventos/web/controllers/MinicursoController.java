@@ -25,120 +25,119 @@ import br.com.fipgati.eventos.web.interceptors.Auth;
 @Resource
 public class MinicursoController {
 
-	private static final Logger logger = LoggerFactory.getLogger(MinicursoController.class);  
-	private Result result;
-	private MinicursoRepositorio minicursoRepositorio;
-	private EventoRepostorio eventoRepostorio;
-	private Validator validator;
-	private ServletContext context;
-	private ArquivoUtil arquivoUtil;
+    private static final Logger logger = LoggerFactory.getLogger(MinicursoController.class);
+    private Result result;
+    private MinicursoRepositorio minicursoRepositorio;
+    private EventoRepostorio eventoRepostorio;
+    private Validator validator;
+    private ServletContext context;
+    private ArquivoUtil arquivoUtil;
 
-	public MinicursoController(Result result, ArquivoUtil arquivoUtil, MinicursoRepositorio minicursoRepositorio, EventoRepostorio eventoRepostorio,
-			Validator validator, ServletContext context) {
-		this.result = result;
-		this.minicursoRepositorio = minicursoRepositorio;
-		this.eventoRepostorio = eventoRepostorio;
-		this.validator = validator;
-		this.context = context;
-		this.arquivoUtil = arquivoUtil;
-	}
+    public MinicursoController(Result result, ArquivoUtil arquivoUtil, MinicursoRepositorio minicursoRepositorio, EventoRepostorio eventoRepostorio,
+            Validator validator, ServletContext context) {
+        this.result = result;
+        this.minicursoRepositorio = minicursoRepositorio;
+        this.eventoRepostorio = eventoRepostorio;
+        this.validator = validator;
+        this.context = context;
+        this.arquivoUtil = arquivoUtil;
+    }
 
-	@Auth
-	@Get("/evento/gerenciar/{evento.id}/newmini")
-	public Minicurso newMinicurso(Evento evento) {
-		Evento dbEvento = eventoRepostorio.load(evento.getId());
-		result.include("evento", dbEvento);
-		System.out.println("Ta passando por aqui");
-		return new Minicurso();
-	}
+    @Auth
+    @Get("/evento/gerenciar/{evento.id}/newmini")
+    public Minicurso newMinicurso(Evento evento) {
+        Evento dbEvento = eventoRepostorio.load(evento.getId());
+        result.include("evento", dbEvento);
+        System.out.println("Ta passando por aqui");
+        return new Minicurso();
+    }
 
-	@Auth
-	@Post("/evento/gerenciar/new/minicurso")
-	public void create(Minicurso minicurso, Evento evento, String data, String hora, UploadedFile mc) {
-		Evento dbEvento = eventoRepostorio.load(evento.getId());
-		dbEvento.addMinicurso(minicurso);
-		try {
-			minicurso.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
-		} catch (ParseException e) {
-			logger.error(e.getMessage());
-		}
-		validator.onErrorRedirectTo(this).newMinicurso(dbEvento);
-		minicursoRepositorio.save(minicurso);
-		Minicurso dbMinicurso = minicursoRepositorio.load(minicurso.getId());
+    @Auth
+    @Post("/evento/gerenciar/new/minicurso")
+    public void create(Minicurso minicurso, Evento evento, String data, String hora, UploadedFile mc) {
+        Evento dbEvento = eventoRepostorio.load(evento.getId());
+        dbEvento.addMinicurso(minicurso);
+        try {
+            minicurso.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
+        } catch (ParseException e) {
+            logger.error(e.getMessage());
+        }
+        validator.onErrorRedirectTo(this).newMinicurso(dbEvento);
+        minicursoRepositorio.save(minicurso);
+        Minicurso dbMinicurso = minicursoRepositorio.load(minicurso.getId());
 
-		String path = context.getRealPath("/arquivos");
-		StringBuilder sb;
+        String path = context.getRealPath("/arquivos");
+        StringBuilder sb;
 
-		if (mc != null) {
-			dbMinicurso.setCapa(true);
-			sb = new StringBuilder();
-			sb.append(dbMinicurso.getId()).append("mc.jpg");
-			arquivoUtil.salva(mc, path, sb.toString());
-		}
-		result.redirectTo(this).list(dbEvento);
-	}
+        if (mc != null) {
+            dbMinicurso.setCapa(true);
+            sb = new StringBuilder();
+            sb.append(dbMinicurso.getId()).append("mc.jpg");
+            arquivoUtil.salva(mc, path, sb.toString());
+        }
+        result.redirectTo(this).list(dbEvento);
+    }
 
-	@Auth
-	@Get("/evento/gerenciar/{evento.id}/minicursos")
-	public void list(Evento evento) {
-		Evento dbEvento = eventoRepostorio.load(evento.getId());
-		result.include("minicursoList", dbEvento.getListaMinicursos());
-		result.include("evento", dbEvento);
-	}
+    @Auth
+    @Get("/evento/gerenciar/{evento.id}/minicursos")
+    public void list(Evento evento) {
+        Evento dbEvento = eventoRepostorio.load(evento.getId());
+        result.include("minicursoList", dbEvento.getListaMinicursos());
+        result.include("evento", dbEvento);
+    }
 
-	@Auth
-	@Get("/evento/gerenciar/{evento.id}/minicurso/delete/{minicurso.id}")
-	public void destroy(Evento evento, Minicurso minicurso) {
-		Evento dbEvento = eventoRepostorio.load(evento.getId());
-		dbEvento.removeMinicurso(minicursoRepositorio.load(minicurso.getId()));
-		eventoRepostorio.update(dbEvento);
-		minicursoRepositorio.delete(minicursoRepositorio.load(minicurso.getId()));
-		result.redirectTo(this).list(evento);
-	}
+    @Auth
+    @Get("/evento/gerenciar/{evento.id}/minicurso/delete/{minicurso.id}")
+    public void destroy(Evento evento, Minicurso minicurso) {
+        Evento dbEvento = eventoRepostorio.load(evento.getId());
+        dbEvento.removeMinicurso(minicursoRepositorio.load(minicurso.getId()));
+        eventoRepostorio.update(dbEvento);
+        minicursoRepositorio.delete(minicursoRepositorio.load(minicurso.getId()));
+        result.redirectTo(this).list(evento);
+    }
 
-	@Auth
-	@Get("/evento/gerenciar/{evento.id}/minicurso/edit/{minicurso.id}")
-	public Minicurso edit(Evento evento, Minicurso minicurso) {
-		result.include("action", "edit");
-		result.include("evento", eventoRepostorio.load(evento.getId()));
-		return minicursoRepositorio.load(minicurso.getId());
-	}
+    @Auth
+    @Get("/evento/gerenciar/{evento.id}/minicurso/edit/{minicurso.id}")
+    public Minicurso edit(Evento evento, Minicurso minicurso) {
+        result.include("action", "edit");
+        result.include("evento", eventoRepostorio.load(evento.getId()));
+        return minicursoRepositorio.load(minicurso.getId());
+    }
 
-	@Auth
-	@Put("/evento/gerenciar/minicurso/edit")
-	public void update(Evento evento, Minicurso minicurso, String hora, String data) {
-		Minicurso dbMinicurso = this.minicursoRepositorio.load(minicurso.getId());
-		dbMinicurso.setTema(minicurso.getTema());
-		dbMinicurso.setPalestrante(minicurso.getPalestrante());
-		dbMinicurso.setLocal(minicurso.getLocal());
-		dbMinicurso.setPrecoMinicurso(minicurso.getPrecoMinicurso());
-		dbMinicurso.setVagas(minicurso.getVagas());
-		dbMinicurso.setDescricao(minicurso.getDescricao());
-		try {
-			dbMinicurso.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
-		} catch (ParseException e) {
-			logger.error(e.getMessage());
-			
-		}
-		minicursoRepositorio.update(dbMinicurso);
-		result.redirectTo(this).list(evento);
-	}
+    @Auth
+    @Put("/evento/gerenciar/minicurso/edit")
+    public void update(Evento evento, Minicurso minicurso, String hora, String data) {
+        Minicurso dbMinicurso = this.minicursoRepositorio.load(minicurso.getId());
+        dbMinicurso.setTema(minicurso.getTema());
+        dbMinicurso.setPalestrante(minicurso.getPalestrante());
+        dbMinicurso.setLocal(minicurso.getLocal());
+        dbMinicurso.setPrecoMinicurso(minicurso.getPrecoMinicurso());
+        dbMinicurso.setVagas(minicurso.getVagas());
+        dbMinicurso.setDescricao(minicurso.getDescricao());
+        try {
+            dbMinicurso.setDataInicio(DataUtil.stringToCalendar(data + " " + hora));
+        } catch (ParseException e) {
+            logger.error(e.getMessage());
 
-	
-	@Get("/{evento.id}/minicursos")
-	public void indexMinicurso(Evento evento) {
-		Evento dbEvento = eventoRepostorio.load(evento.getId());
-		result.include("minicursoList", dbEvento.getListaMinicursos());
-		result.include("evento", dbEvento);
-	}
+        }
+        minicursoRepositorio.update(dbMinicurso);
+        result.redirectTo(this).list(evento);
+    }
 
-	@Auth
-	@Get("/evento/gerenciar/{evento.id}/{minicurso.id}/participantes")
-	public void listaParticipantes(Evento evento, Minicurso minicurso) {
-		Minicurso dbMinicurso = minicursoRepositorio.load(minicurso.getId());
-		result.include("participanteList", dbMinicurso.getListaInscritosMinicurso());
-		result.include("minicurso", dbMinicurso);
-		result.include("evento", eventoRepostorio.load(evento.getId()));
-	}
+    @Get("/{evento.id}/minicursos")
+    public void indexMinicurso(Evento evento) {
+        Evento dbEvento = eventoRepostorio.load(evento.getId());
+        result.include("minicursoList", dbEvento.getListaMinicursos());
+        result.include("evento", dbEvento);
+    }
+
+    @Auth
+    @Get("/evento/gerenciar/{evento.id}/{minicurso.id}/participantes")
+    public void listaParticipantes(Evento evento, Minicurso minicurso) {
+        Minicurso dbMinicurso = minicursoRepositorio.load(minicurso.getId());
+        result.include("participanteList", dbMinicurso.getListaInscritosMinicurso());
+        result.include("minicurso", dbMinicurso);
+        result.include("evento", eventoRepostorio.load(evento.getId()));
+    }
 
 }

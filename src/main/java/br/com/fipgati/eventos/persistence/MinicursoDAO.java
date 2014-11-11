@@ -7,9 +7,9 @@ import br.com.fipgati.eventos.domain.model.Minicurso;
 import br.com.fipgati.eventos.domain.repositorio.MinicursoRepositorio;
 
 @Component
-public class MinicursoDAO extends GenericDAO<Minicurso> implements MinicursoRepositorio{
+public class MinicursoDAO extends GenericDAO<Minicurso> implements MinicursoRepositorio {
 
-	public MinicursoDAO(Session session) {
-		super(Minicurso.class, session);
-	}
+    public MinicursoDAO(Session session) {
+        super(Minicurso.class, session);
+    }
 }

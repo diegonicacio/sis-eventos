@@ -6,14 +6,14 @@ import br.com.fipgati.eventos.domain.model.Usuario;
 
 @Resource
 public class LoginController {
-	
-	@Path("/admin")
-	public void index(){
-		
-	}
-	
-	public void autenticar(Usuario organizador){
-		//logar
-	}
+
+    @Path("/admin")
+    public void index() {
+
+    }
+
+    public void autenticar(Usuario organizador) {
+        // logar
+    }
 
 }

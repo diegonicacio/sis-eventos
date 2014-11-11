@@ -9,6 +9,6 @@
   <mapping class="br.com.fipgati.eventos.domain.model.Palestra"/>
   <mapping class="br.com.fipgati.eventos.domain.model.Palestrante"/>
   <mapping class="br.com.fipgati.eventos.domain.model.Patrocinador"/>
-    <mapping class="br.com.fipgati.eventos.domain.model.Usuario"/>
+  <mapping class="br.com.fipgati.eventos.domain.model.Usuario"/>
  </session-factory>
 </hibernate-configuration>

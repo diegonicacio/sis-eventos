@@ -7,10 +7,10 @@ import br.com.fipgati.eventos.domain.model.Evento;
 import br.com.fipgati.eventos.domain.repositorio.EventoRepostorio;
 
 @Component
-public class EventoDAO extends GenericDAO<Evento> implements EventoRepostorio{
+public class EventoDAO extends GenericDAO<Evento> implements EventoRepostorio {
 
-	public EventoDAO(Session session) {
-		super(Evento.class, session);
-	}
+    public EventoDAO(Session session) {
+        super(Evento.class, session);
+    }
 
 }

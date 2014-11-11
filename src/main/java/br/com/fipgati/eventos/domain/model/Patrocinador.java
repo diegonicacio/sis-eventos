@@ -8,43 +8,43 @@ import javax.persistence.Id;
 @Entity
 public class Patrocinador {
 
-	@Id
-	@GeneratedValue
-	private Long id;
-	private String nome;
-	@Column(length=100000)
-	private String descricao;
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String nome;
+    @Column(length = 100000)
+    private String descricao;
 
-	public Patrocinador(String nome) {
-		this.nome = nome;
-	}
-	
-	public Patrocinador() {
-		// TODO Auto-generated constructor stub
-	}
+    public Patrocinador(String nome) {
+        this.nome = nome;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Patrocinador() {
+        // TODO Auto-generated constructor stub
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public String getDescricao() {
-		return descricao;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
 }
